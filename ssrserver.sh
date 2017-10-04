@@ -291,7 +291,7 @@ Write_configuration_mysql(){
     "password": "${SQL_PWD}",
     "db": "${SQL_DB}",
     "node_id": ${NODE_ID},
-    "transfer_mul": 0,
+    "transfer_mul": 1.0,
     "ssl_enable": 0,
     "ssl_ca": "",
     "ssl_cert": "",
