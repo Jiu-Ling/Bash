@@ -62,7 +62,7 @@ Centos_Install(){
 	yum update -y
 	yum install wget curl sed -y
   wget https://copr.fedoraproject.org/coprs/rhscl/devtoolset-3/repo/epel-6/rhscl-devtoolset-3-epel-6.repo -O /etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo
-  [[ ! -e "rhscl-devtoolset-3-epel-6.repo" ]] && echo -e "${Error} CentOS Repo 配置文件下载失败 !" && exit 1
+  [[ ! -e "/etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo" ]] && echo -e "${Error} CentOS Repo 配置文件下载失败 !" && exit 1
   yum install devtoolset-3-gcc devtoolset-3-gcc-c++ devtoolset-3-binutils devtoolset-3-gcc-gfortran -y
   scl enable devtoolset-3 bash
   wget https://github.com/aria2/aria2/releases/download/release-1.32.0/aria2-1.32.0.tar.gz
