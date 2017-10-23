@@ -159,6 +159,7 @@ Set_Transfer_Mul(){
 	stty erase '^H' && read -p "(默认: 1.0):" Transfer_Mul
 	[[ -z "${Transfer_Mul}" ]] && Transfer_Mul="1.0"
 	echo && echo ${Separator_1} && echo -e "	流量倍率 : ${Green_font_prefix}${Transfer_Mul}${Font_color_suffix}" && echo ${Separator_1} && echo
+}
 Set_Modle_Config(){
 	echo -e "请设置加速算法(延时大于90ms请选1，小于90ms请选2)：
  ${Green_font_prefix} 1.${Font_color_suffix} hybla
