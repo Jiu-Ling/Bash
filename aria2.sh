@@ -58,7 +58,6 @@ check_caddy_installed_status(){
 Install_Aria2(){
 	if [[ ${release} == "centos" ]]; then
 		Centos_Install_Yum
-		Centos_Install
 		Download_Config
 		Service_Aria2
 	fi
@@ -124,9 +123,9 @@ Service_Aria2(){
 # 下载配置文件
 Download_Config(){
 	cd /etc/aria2
-	wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2c.conf" -O /etc/aria2/aria2c.conf
+	wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2c.conf -O /etc/aria2/aria2c.conf
 	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 配置文件下载失败 !" && rm -rf "${file}" && exit 1
-	wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/dht.dat" -O  /etc/aria2/dht.dat
+	wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/dht.dat -O  /etc/aria2/dht.dat
 	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 DHT文件下载失败 !" && rm -rf "${file}" && exit 1
 	echo '' > /etc/aria2/aria2.session
 }
