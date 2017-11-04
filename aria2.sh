@@ -99,7 +99,6 @@ Debian_Install(){
 # 设置自启
 Service_Aria2(){
 		if [[ ${release} = "centos" ]]; then
-			mkdir -p /etc/aria2
       if ! wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2 -O /etc/init.d/aria2; then
 			  echo -e "${Error} Aria2服务 管理脚本下载失败 !" && exit 1
 		  fi
@@ -109,7 +108,6 @@ Service_Aria2(){
 		  mkdir -p ~/.aria2
       chmod -R a+x ~/.aria2
 		else
-		  mkdir -p /etc/aria2
 		  if ! wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2 -O /etc/init.d/aria2; then
 			  echo -e "${Error} Aria2服务 管理脚本下载失败 !" && exit 1
 		  fi
@@ -122,6 +120,7 @@ Service_Aria2(){
 }
 # 下载配置文件
 Download_Config(){
+        mkdir /etc/aria2
 	cd /etc/aria2
 	wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2c.conf -O /etc/aria2/aria2c.conf
 	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 配置文件下载失败 !" && rm -rf "${file}" && exit 1
