@@ -11,16 +11,16 @@ export PATH
 
 sh_ver="1.0"
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
-Info="${Green_font_prefix}[ĞÅÏ¢]${Font_color_suffix}"
-Error="${Red_font_prefix}[´íÎó]${Font_color_suffix}"
-Tip="${Green_font_prefix}[×¢Òâ]${Font_color_suffix}"
-Separator_1="¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª"
+Info="${Green_font_prefix}[ä¿¡æ¯]${Font_color_suffix}"
+Error="${Red_font_prefix}[é”™è¯¯]${Font_color_suffix}"
+Tip="${Green_font_prefix}[æ³¨æ„]${Font_color_suffix}"
+Separator_1="â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”"
 file="/etc/aria2"
 aria2c_conf="${file}/aria2c.conf"
 aria2c_log="/etc/aria2/aria2.log"
 aria2c="/usr/bin/aria2c"
 
-#¼ì²é²Ù×÷ÏµÍ³
+#æ£€æŸ¥æ“ä½œç³»ç»Ÿ
 check_sys(){
 	if [[ -f /etc/redhat-release ]]; then
 		release="centos"
@@ -46,15 +46,15 @@ check_pid_caddy(){
 	PIDC=`ps -ef| grep "caddy"| grep -v grep| grep -v ".sh"| grep -v "init.d"| grep -v "service"| awk '{print $2}'`
 }
 check_installed_status(){
-	[[ ! -e ${aria2c} ]] && echo -e "${Error} Aria2 Ã»ÓĞ°²×°£¬Çë¼ì²é !" && exit 1
-	[[ ! -e ${aria2_conf} ]] && echo -e "${Error} Aria2 ÅäÖÃÎÄ¼ş²»´æÔÚ£¬Çë¼ì²é !" && [[ $1 != "un" ]] && exit 1
+	[[ ! -e ${aria2c} ]] && echo -e "${Error} Aria2 æ²¡æœ‰å®‰è£…ï¼Œè¯·æ£€æŸ¥ !" && exit 1
+	[[ ! -e ${aria2_conf} ]] && echo -e "${Error} Aria2 é…ç½®æ–‡ä»¶ä¸å­˜åœ¨ï¼Œè¯·æ£€æŸ¥ !" && [[ $1 != "un" ]] && exit 1
 }
 check_caddy_installed_status(){
-	[[ ! -e /usr/local/bin/caddy ]] && echo -e "${Error} Caddy Ã»ÓĞ°²×°£¬Çë¼ì²é !" && exit 1
-	[[ ! -e /etc/caddy/config.conf ]] && echo -e "${Error} Caddy ÅäÖÃÎÄ¼ş²»´æÔÚ£¬Çë¼ì²é !" && [[ $1 != "un" ]] && exit 1
+	[[ ! -e /usr/local/bin/caddy ]] && echo -e "${Error} Caddy æ²¡æœ‰å®‰è£…ï¼Œè¯·æ£€æŸ¥ !" && exit 1
+	[[ ! -e /etc/caddy/config.conf ]] && echo -e "${Error} Caddy é…ç½®æ–‡ä»¶ä¸å­˜åœ¨ï¼Œè¯·æ£€æŸ¥ !" && [[ $1 != "un" ]] && exit 1
 }
 
-# °²×° ÒÀÀµ
+# å®‰è£… ä¾èµ–
 Install_Aria2(){
 	if [[ ${release} == "centos" ]]; then
 		Centos_Install_Yum
@@ -68,21 +68,21 @@ Install_Aria2(){
 }
 Centos_Install_Yum(){
   wget https://copr.fedoraproject.org/coprs/rhscl/devtoolset-3/repo/epel-6/rhscl-devtoolset-3-epel-6.repo -O /etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo
-  [[ ! -e "/etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo" ]] && echo -e "${Error} CentOS Repo ÅäÖÃÎÄ¼şÏÂÔØÊ§°Ü !" && exit 1
+  [[ ! -e "/etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo" ]] && echo -e "${Error} CentOS Repo é…ç½®æ–‡ä»¶ä¸‹è½½å¤±è´¥ !" && exit 1
   yum install devtoolset-3-gcc devtoolset-3-gcc-c++ devtoolset-3-binutils devtoolset-3-gcc-gfortran sed -y
-  echo -e "${Tip} ÇëÖ´ĞĞ ${Green_font_prefix}scl enable devtoolset-3 bash${Font_color_suffix} ºóÔËĞĞ Centos °²×° Aria2 ²½Öè¶ş"
+  echo -e "${Tip} è¯·æ‰§è¡Œ ${Green_font_prefix}scl enable devtoolset-3 bash${Font_color_suffix} åè¿è¡Œ Centos å®‰è£… Aria2 æ­¥éª¤äºŒ"
 }
 Centos_Install(){
 	mkdir /etc/aria2
 	cd /etc/aria2
   wget --no-check-certificate https://github.com/aria2/aria2/releases/download/release-1.33.0/aria2-1.33.0.tar.gz
-    [[ ! -e "aria2-1.33.0.tar.gz" ]] && echo -e "${Error} Aria2Ô´ÂëÏÂÔØÊ§°Ü !" && exit 1
+    [[ ! -e "aria2-1.33.0.tar.gz" ]] && echo -e "${Error} Aria2æºç ä¸‹è½½å¤±è´¥ !" && exit 1
   tar xzvf aria2-1.33.0.tar.gz
   cd aria2-1.33.0
   sed -i s"/1\, 16\,/1\, 64\,/" ./src/OptionHandlerFactory.cc
   ./configure
   make && make install
-  echo -e "${Info} Aria2°²×°³É¹¦£¡"
+  echo -e "${Info} Aria2å®‰è£…æˆåŠŸï¼"
 }
 Debian_Install(){
 	apt-get update
@@ -94,15 +94,15 @@ Debian_Install(){
   ./configure
   make
   make install
-  echo -e "${Info} Aria2°²×°³É¹¦£¡"
+  echo -e "${Info} Aria2å®‰è£…æˆåŠŸï¼"
 }
 
-# ÉèÖÃ×ÔÆô
+# è®¾ç½®è‡ªå¯
 Service_Aria2(){
 		if [[ ${release} = "centos" ]]; then
 			mkdir -p /etc/aria2
       if ! wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2 -O /etc/init.d/aria2; then
-			  echo -e "${Error} Aria2·şÎñ ¹ÜÀí½Å±¾ÏÂÔØÊ§°Ü !" && exit 1
+			  echo -e "${Error} Aria2æœåŠ¡ ç®¡ç†è„šæœ¬ä¸‹è½½å¤±è´¥ !" && exit 1
 		  fi
 		  chmod +x /etc/init.d/aria2
 		  chkconfig --add aria2
@@ -112,7 +112,7 @@ Service_Aria2(){
 		else
 		  mkdir -p /etc/aria2
 		  if ! wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2 -O /etc/init.d/aria2; then
-			  echo -e "${Error} Aria2·şÎñ ¹ÜÀí½Å±¾ÏÂÔØÊ§°Ü !" && exit 1
+			  echo -e "${Error} Aria2æœåŠ¡ ç®¡ç†è„šæœ¬ä¸‹è½½å¤±è´¥ !" && exit 1
 		  fi
       chmod +x /etc/init.d/aria2
       update-rc.d -f aria2 remove >/dev/null 2>&1
@@ -121,54 +121,54 @@ Service_Aria2(){
       chmod -R a+x ~/.aria2
     fi
 }
-# ÏÂÔØÅäÖÃÎÄ¼ş
+# ä¸‹è½½é…ç½®æ–‡ä»¶
 Download_Config(){
 	cd /etc/aria2
 	wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2c.conf" -O /etc/aria2/aria2c.conf
-	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 ÅäÖÃÎÄ¼şÏÂÔØÊ§°Ü !" && rm -rf "${file}" && exit 1
+	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 é…ç½®æ–‡ä»¶ä¸‹è½½å¤±è´¥ !" && rm -rf "${file}" && exit 1
 	wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/dht.dat" -O  /etc/aria2/dht.dat
-	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 DHTÎÄ¼şÏÂÔØÊ§°Ü !" && rm -rf "${file}" && exit 1
+	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 DHTæ–‡ä»¶ä¸‹è½½å¤±è´¥ !" && rm -rf "${file}" && exit 1
 	echo '' > /etc/aria2/aria2.session
 }
 Set_SSL_Crt_Path(){
-	echo "ÇëÊäÈëSSLÖ¤ÊéÂ·¾¶(ĞèÒªpem¸ñÊ½±£´æ)£º"
-	stty erase '^H' && read -p "(Ä¬ÈÏ: /www/crt.pem):" Crt_Path
+	echo "è¯·è¾“å…¥SSLè¯ä¹¦è·¯å¾„(éœ€è¦pemæ ¼å¼ä¿å­˜)ï¼š"
+	stty erase '^H' && read -p "(é»˜è®¤: /www/crt.pem):" Crt_Path
 	[[ -z "${Crt_Path}" ]] && Crt_Path="/www/crt.pem"
-  echo && echo ${Separator_1} && echo -e "	SSLÖ¤ÊéÂ·¾¶ : ${Green_font_prefix}${Crt_Path}${Font_color_suffix}" && echo ${Separator_1} && echo
+  echo && echo ${Separator_1} && echo -e "	SSLè¯ä¹¦è·¯å¾„ : ${Green_font_prefix}${Crt_Path}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_SSL_Key_Path(){
-	echo "ÇëÊäÈëSSLË½Ô¿Â·¾¶£º"
-	stty erase '^H' && read -p "(Ä¬ÈÏ: /www/key.key):" Key_Path
+	echo "è¯·è¾“å…¥SSLç§é’¥è·¯å¾„ï¼š"
+	stty erase '^H' && read -p "(é»˜è®¤: /www/key.key):" Key_Path
 	[[ -z "${Key_Path}" ]] && Key_Path="/www/key.key"
-  echo && echo ${Separator_1} && echo -e "	SSLË½Ô¿Â·¾¶ : ${Green_font_prefix}${Key_Path}${Font_color_suffix}" && echo ${Separator_1} && echo
+  echo && echo ${Separator_1} && echo -e "	SSLç§é’¥è·¯å¾„ : ${Green_font_prefix}${Key_Path}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_Url(){
-	echo "ÇëÊäÈëÍøÕ¾ÍøÖ·£¨²»´øhttp£©£º"
-	stty erase '^H' && read -p "(Ä¬ÈÏ: localhost):" Url
+	echo "è¯·è¾“å…¥ç½‘ç«™ç½‘å€ï¼ˆä¸å¸¦httpï¼‰ï¼š"
+	stty erase '^H' && read -p "(é»˜è®¤: localhost):" Url
 	[[ -z "${Url}" ]] && Url="localhost"
-  echo && echo ${Separator_1} && echo -e "	SSLË½Ô¿Â·¾¶ : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
+  echo && echo ${Separator_1} && echo -e "	SSLç§é’¥è·¯å¾„ : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Ng_SSL_Filemanager_Install(){
 	check_installed_status
 	Set_Url
 	curl https://getcaddy.com | bash -s personal http.filemanager
-	[[ -e /usr/local/bin/caddy ]] && echo -e "${Info} Caddy°²×°³É¹¦£¡"
+	[[ -e /usr/local/bin/caddy ]] && echo -e "${Info} Caddyå®‰è£…æˆåŠŸï¼"
 	while [ "$go" != 'y' ] && [ "$go" != 'n' ]
   do
-	  read -p "ÄãÏëÔÚÍøÕ¾ºÍAria2cÉÏÆôÓÃSSLÂğ£¿(y/n): " go;
+	  read -p "ä½ æƒ³åœ¨ç½‘ç«™å’ŒAria2cä¸Šå¯ç”¨SSLå—ï¼Ÿ(y/n): " go;
   done
   if [ "$go" == 'n' ];then
 	  No_SSL_Install;
   fi
   mkdir /etc/caddy
   wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/config.conf" -O /etc/caddy/config.conf
-  [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy ÅäÖÃÎÄ¼şÏÂÔØÊ§°Ü !" && rm -rf /etc/caddy/config.conf && exit 1
+  [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy é…ç½®æ–‡ä»¶ä¸‹è½½å¤±è´¥ !" && rm -rf /etc/caddy/config.conf && exit 1
   sed -i 's,https:\/\/example.com,https:\/\/'${Url}',' /etc/caddy/config.conf
   mkdir /www && mkdir /www/wwwroot
   cd /www/wwwroot
   git clone https://github.com/mayswind/AriaNg-DailyBuild.git
   mv AriaNg-DailyBuild ariang
-  [[ ! -s "/www/wwwroot/ariang/index.html" ]] && echo -e "${Error} AriaNG ÏÂÔØÊ§°Ü !" && rm -rf /www/wwwroot/ariang && exit 1
+  [[ ! -s "/www/wwwroot/ariang/index.html" ]] && echo -e "${Error} AriaNG ä¸‹è½½å¤±è´¥ !" && rm -rf /www/wwwroot/ariang && exit 1
   sed -i 's/rpc-secure=false/rpc-secure=true/' /etc/aria2/aria2c.conf
   Set_SSL_Crt_Path
   Value="${Crt_Path}"
@@ -178,7 +178,7 @@ Ng_SSL_Filemanager_Install(){
   Value="${Key_Path}"
   Write_Dir
   sed -i 's:#rpc-certificate=\/path\/to\/certificate.key:'${New_Value}':' /etc/aria2/aria2c.conf
-  echo -e "${Info} AriaNG Filemanager°²×°³É¹¦£¡SSLÆôÓÃ³É¹¦£¡"
+  echo -e "${Info} AriaNG Filemanagerå®‰è£…æˆåŠŸï¼SSLå¯ç”¨æˆåŠŸï¼"
 }
 Write_Dir(){
 	cat >/tmp/a<<-EOF
@@ -190,35 +190,35 @@ rm -rf /tmp/a
 No_SSL_Install(){
 	mkdir /etc/caddy
   wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/config.conf" -O /etc/caddy/config.conf
-  [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy ÅäÖÃÎÄ¼şÏÂÔØÊ§°Ü !" && rm -rf /etc/caddy/config.conf && exit 1
+  [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy é…ç½®æ–‡ä»¶ä¸‹è½½å¤±è´¥ !" && rm -rf /etc/caddy/config.conf && exit 1
   sed -i 's,http:\/\/example.com,http:\/\/'${Url}',' /etc/caddy/config.conf
   mkdir /www && mkdir /www/wwwroot
   cd /www/wwwroot
   git clone https://github.com/mayswind/AriaNg-DailyBuild.git
   mv AriaNg-DailyBuild ariang
-  [[ ! -s "/www/wwwroot/ariang/index.html" ]] && echo -e "${Error} AriaNG ÏÂÔØÊ§°Ü !" && rm -rf /www/wwwroot/ariang && exit 1
-  echo -e "${Info} AriaNG Filemanager°²×°³É¹¦£¡"
+  [[ ! -s "/www/wwwroot/ariang/index.html" ]] && echo -e "${Error} AriaNG ä¸‹è½½å¤±è´¥ !" && rm -rf /www/wwwroot/ariang && exit 1
+  echo -e "${Info} AriaNG Filemanagerå®‰è£…æˆåŠŸï¼"
   
 }
 Start_aria2(){
 	check_installed_status
 	check_pid
-	[[ ! -z ${PID} ]] && echo -e "${Error} Aria2 ÕıÔÚÔËĞĞ£¬Çë¼ì²é !" && exit 1
+	[[ ! -z ${PID} ]] && echo -e "${Error} Aria2 æ­£åœ¨è¿è¡Œï¼Œè¯·æ£€æŸ¥ !" && exit 1
 	/etc/init.d/aria2 start
 }
 Start_caddy(){
 	check_caddy_installed_status
 	check_pid_caddy
-	[[ ! -z ${PIDC} ]] && echo -e "${Error} Caddy ÕıÔÚÔËĞĞ£¬Çë¼ì²é !" && exit 1
+	[[ ! -z ${PIDC} ]] && echo -e "${Error} Caddy æ­£åœ¨è¿è¡Œï¼Œè¯·æ£€æŸ¥ !" && exit 1
 	nohup caddy -conf="/etc/caddy/config.conf" >/dev/null 2>&1 &
-	[[ ! -z ${PIDC} ]] && echo -e "${Info} Caddy Æô¶¯³É¹¦£¡"
+	[[ ! -z ${PIDC} ]] && echo -e "${Info} Caddy å¯åŠ¨æˆåŠŸï¼"
 }
 Stop_caddy(){
 	check_caddy_installed_status
 	check_pid_caddy
-	[[ -z ${PIDC} ]] && echo -e "${Error} Aria2 Ã»ÓĞÔËĞĞ£¬Çë¼ì²é !" && exit 1
+	[[ -z ${PIDC} ]] && echo -e "${Error} Aria2 æ²¡æœ‰è¿è¡Œï¼Œè¯·æ£€æŸ¥ !" && exit 1
   eval $(ps -ef | grep filemanager | grep -v grep | awk '{print "kill "$2}')
-  [[ -z ${PIDC} ]] && echo -e "${Error} CaddyÍ£Ö¹³É¹¦£¡"
+  [[ -z ${PIDC} ]] && echo -e "${Error} Caddyåœæ­¢æˆåŠŸï¼"
 }
 Restart_caddy(){
 	Stop_caddy
@@ -227,7 +227,7 @@ Restart_caddy(){
 Stop_aria2(){
 	check_installed_status
 	check_pid
-	[[ -z ${PID} ]] && echo -e "${Error} Aria2 Ã»ÓĞÔËĞĞ£¬Çë¼ì²é !" && exit 1
+	[[ -z ${PID} ]] && echo -e "${Error} Aria2 æ²¡æœ‰è¿è¡Œï¼Œè¯·æ£€æŸ¥ !" && exit 1
 	/etc/init.d/aria2 stop
 }
 Restart_aria2(){
@@ -237,42 +237,42 @@ Restart_aria2(){
 	/etc/init.d/aria2 start
 }
 View_Log(){
-	[[ ! -e ${aria2_log} ]] && echo -e "${Error} Aria2 ÈÕÖ¾ÎÄ¼ş²»´æÔÚ !" && exit 1
-	echo && echo -e "${Tip} °´ ${Red_font_prefix}Ctrl+C${Font_color_suffix} ÖÕÖ¹²é¿´ÈÕÖ¾" && echo
+	[[ ! -e ${aria2_log} ]] && echo -e "${Error} Aria2 æ—¥å¿—æ–‡ä»¶ä¸å­˜åœ¨ !" && exit 1
+	echo && echo -e "${Tip} æŒ‰ ${Red_font_prefix}Ctrl+C${Font_color_suffix} ç»ˆæ­¢æŸ¥çœ‹æ—¥å¿—" && echo
 	tail -f ${aria2_log}
 }
 check_sys
-[[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && [[ ${release} != "centos" ]] && echo -e "${Error} ±¾½Å±¾²»Ö§³Öµ±Ç°ÏµÍ³ ${release} !" && exit 1
+[[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && [[ ${release} != "centos" ]] && echo -e "${Error} æœ¬è„šæœ¬ä¸æ”¯æŒå½“å‰ç³»ç»Ÿ ${release} !" && exit 1
 IP=`wget -qO- -t1 -T2 ipinfo.io/ip`      
-echo && echo -e " Aria2 Ò»¼ü°²×°¹ÜÀí½Å±¾ ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- By Jiuling ÄúµÄIPµØÖ·£º${IP} --
+echo && echo -e " Aria2 ä¸€é”®å®‰è£…ç®¡ç†è„šæœ¬ ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+  -- By Jiuling æ‚¨çš„IPåœ°å€ï¼š${IP} --
   
- ${Green_font_prefix}1.${Font_color_suffix} °²×° Aria2
- ${Green_font_prefix}2.${Font_color_suffix} Centos °²×° Aria2 ²½Öè¶ş
- ${Green_font_prefix}3.${Font_color_suffix} °²×° AriaNG ºÍ Filemanager ²¢ÆôÓÃSSL(Caddy·şÎñ¶Ë)
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix}4.${Font_color_suffix} Æô¶¯ Aria2
- ${Green_font_prefix}5.${Font_color_suffix} Í£Ö¹ Aria2
- ${Green_font_prefix}6.${Font_color_suffix} ÖØÆô Aria2
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix}7.${Font_color_suffix} Æô¶¯ Caddy
- ${Green_font_prefix}8.${Font_color_suffix} Í£Ö¹ Caddy
- ${Green_font_prefix}9.${Font_color_suffix} ÖØÆô Caddy
- ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix}10.${Font_color_suffix} ²é¿´ ÈÕÖ¾ĞÅÏ¢
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª" && echo
+ ${Green_font_prefix}1.${Font_color_suffix} å®‰è£… Aria2
+ ${Green_font_prefix}2.${Font_color_suffix} Centos å®‰è£… Aria2 æ­¥éª¤äºŒ
+ ${Green_font_prefix}3.${Font_color_suffix} å®‰è£… AriaNG å’Œ Filemanager å¹¶å¯ç”¨SSL(CaddyæœåŠ¡ç«¯)
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix}4.${Font_color_suffix} å¯åŠ¨ Aria2
+ ${Green_font_prefix}5.${Font_color_suffix} åœæ­¢ Aria2
+ ${Green_font_prefix}6.${Font_color_suffix} é‡å¯ Aria2
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix}7.${Font_color_suffix} å¯åŠ¨ Caddy
+ ${Green_font_prefix}8.${Font_color_suffix} åœæ­¢ Caddy
+ ${Green_font_prefix}9.${Font_color_suffix} é‡å¯ Caddy
+ â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix}10.${Font_color_suffix} æŸ¥çœ‹ æ—¥å¿—ä¿¡æ¯
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”" && echo
 if [[ -e ${aria2c} ]]; then
 	check_pid
 	if [[ ! -z "${PID}" ]]; then
-		echo -e " µ±Ç°×´Ì¬: ${Green_font_prefix}ÒÑ°²×°${Font_color_suffix} ²¢ ${Green_font_prefix}ÒÑÆô¶¯${Font_color_suffix}"
+		echo -e " å½“å‰çŠ¶æ€: ${Green_font_prefix}å·²å®‰è£…${Font_color_suffix} å¹¶ ${Green_font_prefix}å·²å¯åŠ¨${Font_color_suffix}"
 	else
-		echo -e " µ±Ç°×´Ì¬: ${Green_font_prefix}ÒÑ°²×°${Font_color_suffix} µ« ${Red_font_prefix}Î´Æô¶¯${Font_color_suffix}"
+		echo -e " å½“å‰çŠ¶æ€: ${Green_font_prefix}å·²å®‰è£…${Font_color_suffix} ä½† ${Red_font_prefix}æœªå¯åŠ¨${Font_color_suffix}"
 	fi
 else
-	echo -e " µ±Ç°×´Ì¬: ${Red_font_prefix}Î´°²×°${Font_color_suffix}"
+	echo -e " å½“å‰çŠ¶æ€: ${Red_font_prefix}æœªå®‰è£…${Font_color_suffix}"
 fi
 echo
-stty erase '^H' && read -p " ÇëÊäÈëÊı×Ö [0-10]:" num
+stty erase '^H' && read -p " è¯·è¾“å…¥æ•°å­— [0-10]:" num
 case "$num" in
 	1)
 	Install_Aria2
@@ -305,6 +305,6 @@ case "$num" in
 	View_Log
 	;;
 	*)
-	echo "ÇëÊäÈëÕıÈ·Êı×Ö [1-5]"
+	echo "è¯·è¾“å…¥æ­£ç¡®æ•°å­— [1-5]"
 	;;
 esac
