@@ -1,0 +1,56 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          aria2
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable aria2c by daemon.
+### END INIT INFO
+PATH=/usr/sbin:/usr/bin:/usr/local/bin:/usr/local/sbin:/sbin:/bin
+DAEMON=aria2c
+CONF=/etc/aria2/aria2c.conf
+DAEMONPID=
+ 
+case "$1" in
+start)
+[ -n "$DAEMONPID" ] && echo "aria2c already in running [$DAEMONPID]." && exit 1
+ulimit -n 65530
+iptables -A INPUT -p tcp --dport 6800 -j ACCEPT
+iptables -A INPUT -p tcp --dport 6881:6999 -j ACCEPT
+iptables -A INPUT -p udp --dport 6881:6999 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 6800 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 6881:6999 -j ACCEPT
+iptables -A OUTPUT -p udp --dport 6881:6999 -j ACCEPT
+sleep 1
+[ -e $CONF ] && $DAEMON --conf-path=$CONF -D
+DAEMONPID=
+[ -n "$DAEMONPID" ] && echo "aria2c START Success [$DAEMONPID]! "
+[ -z "$DAEMONPID" ] && echo "aria2c START Fail! "
+;;
+stop)
+[ -z "$DAEMONPID" ] && echo "aria2c not work ." && exit 1
+kill -9 "$DAEMONPID" >/dev/null 2>&1
+sleep 1
+iptables -A INPUT -p tcp --dport 6800 -j DROP
+iptables -A INPUT -p tcp --dport 6881:6999 -j DROP
+iptables -A INPUT -p udp --dport 6881:6999 -j DROP
+iptables -A OUTPUT -p tcp --dport 6800 -j DROP
+iptables -A OUTPUT -p tcp --dport 6881:6999 -j DROP
+iptables -A OUTPUT -p udp --dport 6881:6999 -j DROP
+DAEMONPID=
+[ -z "$DAEMONPID" ] && echo "aria2c STOP Success."
+[ -n "$DAEMONPID" ] && echo "aria2c STOP Fail."
+;;
+restart)
+[ -n "$DAEMONPID" ] && kill -9 "$DAEMONPID" >/dev/null 2>&1
+sleep 1
+$0 start;
+;;
+*)
+echo "Usage: aria2c {start|stop|restart}"
+exit 1
+esac
+exit 0
+ 
