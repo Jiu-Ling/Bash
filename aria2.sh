@@ -150,7 +150,7 @@ Set_Url(){
   echo && echo ${Separator_1} && echo -e "	SSL私钥路径 : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Ng_SSL_Filemanager_Install(){
-	check_installed_status
+
 	Set_Url
 	curl https://getcaddy.com | bash -s personal http.filemanager
 	[[ -e /usr/local/bin/caddy ]] && echo -e "${Info} Caddy安装成功！"
