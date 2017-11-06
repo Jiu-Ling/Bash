@@ -18,7 +18,7 @@ Separator_1="——————————————————————�
 file="/etc/aria2"
 aria2c_conf="${file}/aria2c.conf"
 aria2c_log="/etc/aria2/aria2.log"
-aria2c="/usr/bin/aria2c"
+aria2c="/usr/local/bin/aria2c"
 
 #检查操作系统
 check_sys(){
