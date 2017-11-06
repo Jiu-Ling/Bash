@@ -86,6 +86,8 @@ Centos_Install(){
 Debian_Install(){
 	apt-get update
 	apt-get install -y make gcc g++ sed vim git sed nettle-dev libgmp-dev libssh2-1-dev libc-ares-dev libxml2-dev zlib1g-dev libsqlite3-dev pkg-config libgpg-error-dev libssl-dev libexpat1-dev libxml2-dev libcppunit-dev autoconf automake autotools-dev autopoint libtool libxml2-dev openssl gettext
+  mkdir /etc/aria2
+  cd /etc/aria2
   git clone https://github.com/aria2/aria2.git
   cd aria2
   sed -i s"/1\, 16\,/1\, 64\,/" ./src/OptionHandlerFactory.cc
@@ -122,7 +124,6 @@ Service_Aria2(){
 }
 # 下载配置文件
 Download_Config(){
-        mkdir /etc/aria2
 	cd /etc/aria2
 	wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2c.conf -O /etc/aria2/aria2c.conf
 	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 配置文件下载失败 !" && rm -rf "${file}" && exit 1
