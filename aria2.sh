@@ -127,7 +127,7 @@ Download_Config(){
 	wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/aria2c.conf -O /etc/aria2/aria2c.conf
 	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 配置文件下载失败 !" && rm -rf "${file}" && exit 1
 	wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/dht.dat -O  /etc/aria2/dht.dat
-	[[ ! -s "/etc/aria2/aria2c.conf" ]] && echo -e "${Error} Aria2 DHT文件下载失败 !" && rm -rf "${file}" && exit 1
+	[[ ! -s "/etc/aria2/dht.dat" ]] && echo -e "${Error} Aria2 DHT文件下载失败 !" && rm -rf "${file}" && exit 1
 	echo '' > /etc/aria2/aria2.session
 }
 Set_SSL_Crt_Path(){
