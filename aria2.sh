@@ -47,7 +47,7 @@ check_pid_caddy(){
 }
 check_installed_status(){
 	[[ ! -e ${aria2c} ]] && echo -e "${Error} Aria2 没有安装，请检查 !" && exit 1
-	[[ ! -e ${aria2_conf} ]] && echo -e "${Error} Aria2 配置文件不存在，请检查 !" && [[ $1 != "un" ]] && exit 1
+	[[ ! -e ${aria2c_conf} ]] && echo -e "${Error} Aria2 配置文件不存在，请检查 !" && [[ $1 != "un" ]] && exit 1
 }
 check_caddy_installed_status(){
 	[[ ! -e /usr/local/bin/caddy ]] && echo -e "${Error} Caddy 没有安装，请检查 !" && exit 1
@@ -150,7 +150,7 @@ Set_Url(){
   echo && echo ${Separator_1} && echo -e "	SSL私钥路径 : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Ng_SSL_Filemanager_Install(){
-
+check_installed_status
 	Set_Url
 	curl https://getcaddy.com | bash -s personal http.filemanager
 	[[ -e /usr/local/bin/caddy ]] && echo -e "${Info} Caddy安装成功！"
