@@ -181,7 +181,7 @@ check_installed_status
   sed -i 's:#rpc-certificate=\/path\/to\/certificate.key:'${New_Value}':' /etc/aria2/aria2c.conf
   echo -e "${Info} AriaNG Filemanager安装成功！SSL启用成功！"
   Start_caddy
-  echo -e "${Info} Filemanager管理地址：https://${Url}/file"
+  echo -e "${Info} Filemanager管理地址：https://${Url}/file" && exit 1
 }
 Write_Dir(){
 	cat >/tmp/a<<-EOF
@@ -202,7 +202,7 @@ No_SSL_Install(){
   [[ ! -s "/www/wwwroot/ariang/index.html" ]] && echo -e "${Error} AriaNG 下载失败 !" && rm -rf /www/wwwroot/ariang && exit 1
   echo -e "${Info} AriaNG Filemanager安装成功！"
   Start_caddy
-  echo -e "${Info} Filemanager管理地址：http://${Url}/file"
+  echo -e "${Info} Filemanager管理地址：http://${Url}/file" && exit 1
 }
 Start_aria2(){
 	check_installed_status
