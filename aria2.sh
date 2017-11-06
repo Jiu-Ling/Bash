@@ -58,8 +58,6 @@ check_caddy_installed_status(){
 Install_Aria2(){
 	if [[ ${release} == "centos" ]]; then
 		Centos_Install_Yum
-		Download_Config
-		Service_Aria2
 	fi
 		Debian_Install
 		Download_Config
@@ -81,11 +79,13 @@ Centos_Install(){
   sed -i s"/1\, 16\,/1\, 64\,/" ./src/OptionHandlerFactory.cc
   ./configure
   make && make install
+  Download_Config
+  Service_Aria2
   echo -e "${Info} Aria2安装成功！"
 }
 Debian_Install(){
 	apt-get update
-	apt-get install -y vim git sed nettle-dev libgmp-dev libssh2-1-dev libc-ares-dev libxml2-dev zlib1g-dev libsqlite3-dev pkg-config libgpg-error-dev libssl-dev libexpat1-dev libxml2-dev libcppunit-dev autoconf automake autotools-dev autopoint libtool libxml2-dev openssl gettext
+	apt-get install -y make gcc g++ sed vim git sed nettle-dev libgmp-dev libssh2-1-dev libc-ares-dev libxml2-dev zlib1g-dev libsqlite3-dev pkg-config libgpg-error-dev libssl-dev libexpat1-dev libxml2-dev libcppunit-dev autoconf automake autotools-dev autopoint libtool libxml2-dev openssl gettext
   git clone https://github.com/aria2/aria2.git
   cd aria2
   sed -i s"/1\, 16\,/1\, 64\,/" ./src/OptionHandlerFactory.cc
@@ -93,6 +93,8 @@ Debian_Install(){
   ./configure
   make
   make install
+  Download_Config
+  Service_Aria2
   echo -e "${Info} Aria2安装成功！"
 }
 
@@ -177,6 +179,8 @@ Ng_SSL_Filemanager_Install(){
   Write_Dir
   sed -i 's:#rpc-certificate=\/path\/to\/certificate.key:'${New_Value}':' /etc/aria2/aria2c.conf
   echo -e "${Info} AriaNG Filemanager安装成功！SSL启用成功！"
+  Start_caddy
+  echo -e "${Info} Filemanager管理地址：https://${Url}/file"
 }
 Write_Dir(){
 	cat >/tmp/a<<-EOF
@@ -196,7 +200,8 @@ No_SSL_Install(){
   mv AriaNg-DailyBuild ariang
   [[ ! -s "/www/wwwroot/ariang/index.html" ]] && echo -e "${Error} AriaNG 下载失败 !" && rm -rf /www/wwwroot/ariang && exit 1
   echo -e "${Info} AriaNG Filemanager安装成功！"
-  
+  Start_caddy
+  echo -e "${Info} Filemanager管理地址：http://${Url}/file"
 }
 Start_aria2(){
 	check_installed_status
