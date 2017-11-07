@@ -137,6 +137,7 @@ Set_Url(){
 }
 Ng_SSL_Filemanager_Install(){
 check_installed_status
+apt-get install curl sed wget -y
 	Set_Url
 	curl https://getcaddy.com | bash -s personal http.filemanager
 	[[ -e /usr/local/bin/caddy ]] && echo -e "${Info} Caddy安装成功！"
