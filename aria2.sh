@@ -60,8 +60,6 @@ Install_Aria2(){
 		Centos_Install_Yum
 	fi
 		Debian_Install
-		Download_Config
-		Service_Aria2
 }
 Centos_Install_Yum(){
   wget https://copr.fedoraproject.org/coprs/rhscl/devtoolset-3/repo/epel-6/rhscl-devtoolset-3-epel-6.repo -O /etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo
@@ -131,20 +129,8 @@ Download_Config(){
 	[[ ! -s "/etc/aria2/dht.dat" ]] && echo -e "${Error} Aria2 DHT文件下载失败 !" && rm -rf "${file}" && exit 1
 	echo '' > /etc/aria2/aria2.session
 }
-Set_SSL_Crt_Path(){
-	echo "请输入SSL证书路径(需要pem格式保存)："
-	stty erase '^H' && read -p "(默认: /www/crt.pem):" Crt_Path
-	[[ -z "${Crt_Path}" ]] && Crt_Path="/www/crt.pem"
-  echo && echo ${Separator_1} && echo -e "	SSL证书路径 : ${Green_font_prefix}${Crt_Path}${Font_color_suffix}" && echo ${Separator_1} && echo
-}
-Set_SSL_Key_Path(){
-	echo "请输入SSL私钥路径："
-	stty erase '^H' && read -p "(默认: /www/key.key):" Key_Path
-	[[ -z "${Key_Path}" ]] && Key_Path="/www/key.key"
-  echo && echo ${Separator_1} && echo -e "	SSL私钥路径 : ${Green_font_prefix}${Key_Path}${Font_color_suffix}" && echo ${Separator_1} && echo
-}
 Set_Url(){
-	echo "请输入网站网址（不带http）："
+	echo "请输入网站网址（不带http(s)）："
 	stty erase '^H' && read -p "(默认: localhost):" Url
 	[[ -z "${Url}" ]] && Url="localhost"
   echo && echo ${Separator_1} && echo -e "	SSL私钥路径 : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
@@ -154,32 +140,15 @@ check_installed_status
 	Set_Url
 	curl https://getcaddy.com | bash -s personal http.filemanager
 	[[ -e /usr/local/bin/caddy ]] && echo -e "${Info} Caddy安装成功！"
-	while [ "$go" != 'y' ] && [ "$go" != 'n' ]
-  do
-	  read -p "你想在网站和Aria2c上启用SSL吗？(y/n): " go;
-  done
-  if [ "$go" == 'n' ];then
-	  No_SSL_Install;
-  fi
   mkdir /etc/caddy
   wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/config.conf" -O /etc/caddy/config.conf
   [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy 配置文件下载失败 !" && rm -rf /etc/caddy/config.conf && exit 1
   sed -i 's,https:\/\/example.com,https:\/\/'${Url}',' /etc/caddy/config.conf
   mkdir /www && mkdir /www/wwwroot
   cd /www/wwwroot
-  git clone https://github.com/mayswind/AriaNg-DailyBuild.git
+  git clone https://github.com/Thnineer/AriaNg-DailyBuild.git
   mv AriaNg-DailyBuild ariang
   [[ ! -s "/www/wwwroot/ariang/index.html" ]] && echo -e "${Error} AriaNG 下载失败 !" && rm -rf /www/wwwroot/ariang && exit 1
-  sed -i 's/rpc-secure=false/rpc-secure=true/' /etc/aria2/aria2c.conf
-  Set_SSL_Crt_Path
-  Value="${Crt_Path}"
-  Write_Dir
-  sed -i 's:#rpc-certificate=\/path\/to\/certificate.pem:'${New_Value}':' /etc/aria2/aria2c.conf
-  Set_SSL_Key_Path
-  Value="${Key_Path}"
-  Write_Dir
-  sed -i 's:#rpc-certificate=\/path\/to\/certificate.key:'${New_Value}':' /etc/aria2/aria2c.conf
-  echo -e "${Info} AriaNG Filemanager安装成功！SSL启用成功！"
   Start_caddy
   echo -e "${Info} Filemanager管理地址：https://${Url}/file" && exit 1
 }
@@ -189,20 +158,6 @@ ${Value}
 EOF
 New_Value=`sed 's:\/:\\/:g' /tmp/a`
 rm -rf /tmp/a
-}
-No_SSL_Install(){
-	mkdir /etc/caddy
-  wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/config.conf" -O /etc/caddy/config.conf
-  [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy 配置文件下载失败 !" && rm -rf /etc/caddy/config.conf && exit 1
-  sed -i 's,https:\/\/example.com,http:\/\/'${Url}',' /etc/caddy/config.conf
-  mkdir /www && mkdir /www/wwwroot
-  cd /www/wwwroot
-  git clone https://github.com/mayswind/AriaNg-DailyBuild.git
-  mv AriaNg-DailyBuild ariang
-  [[ ! -s "/www/wwwroot/ariang/index.html" ]] && echo -e "${Error} AriaNG 下载失败 !" && rm -rf /www/wwwroot/ariang && exit 1
-  echo -e "${Info} AriaNG Filemanager安装成功！"
-  Start_caddy
-  echo -e "${Info} Filemanager管理地址：http://${Url}/file" && exit 1
 }
 Start_aria2(){
 	check_installed_status
