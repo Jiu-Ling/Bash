@@ -144,6 +144,15 @@ Set_Mail(){
 	[[ -z "${Mail}" ]] && Url="admin@${Url}"
   echo && echo ${Separator_1} && echo -e "	邮箱 : ${Green_font_prefix}${Mail}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
+Config_True(){
+  while [ "$go" != 'y' ] && [ "$go" != 'n' ]
+  do
+	read -p "want to install Bt-Panel to the $setup_path directory now?(y/n): " go;
+   done
+   if [ "$go" == 'n' ];then
+	exit 1
+	fi
+}
 Ng_SSL_Filemanager_Install(){
 check_installed_status
 apt-get install curl sed wget -y
