@@ -138,6 +138,12 @@ Set_Url(){
 	[[ -z "${Url}" ]] && Url="localhost"
   echo && echo ${Separator_1} && echo -e "	SSL私钥路径 : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
+Set_Mail(){
+	echo "请输入您的邮箱(用于自动申请SSL证书)："
+	stty erase '^H' && read -p "(默认: localhost):" Url
+	[[ -z "${Url}" ]] && Url="localhost"
+  echo && echo ${Separator_1} && echo -e "	SSL私钥路径 : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
+}
 Ng_SSL_Filemanager_Install(){
 check_installed_status
 apt-get install curl sed wget -y
@@ -148,7 +154,7 @@ apt-get install curl sed wget -y
   wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/config.conf" -O /etc/caddy/config.conf
   [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy 配置文件下载失败 !" && rm -rf /etc/caddy/config.conf && exit 1
   sed -i 's,https:\/\/example.com,https:\/\/'${Url}',' /etc/caddy/config.conf
-  mkdir /www && mkdir /www/wwwroot && mkdir /etc/filemanager
+  mkdir /www && mkdir /www/wwwroot && mkdir /etc/filemanager && mkdir /home/downloads
   cd /www/wwwroot
   git clone https://github.com/Thnineer/AriaNg-DailyBuild.git
   mv AriaNg-DailyBuild ariang
