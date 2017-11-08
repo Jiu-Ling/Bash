@@ -197,7 +197,7 @@ Stop_caddy(){
 	check_caddy_installed_status
 	check_pid_caddy
 	[[ -z ${PIDC} ]] && echo -e "${Error} Aria2 没有运行，请检查 !" && exit 1
-  eval $(ps -ef | grep filemanager | grep -v grep | awk '{print "kill "$2}')
+  eval $(ps -ef | grep caddy | grep -v grep | awk '{print "kill "$2}')
   [[ -z ${PIDC} ]] && echo -e "${Error} Caddy停止成功！"
 }
 Restart_caddy(){
@@ -244,12 +244,12 @@ echo && echo -e " Aria2 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}]$
 if [[ -e ${aria2c} ]]; then
 	check_pid
 	if [[ ! -z "${PID}" ]]; then
-		echo -e " 当前状态: ${Green_font_prefix}已安装${Font_color_suffix} 并 ${Green_font_prefix}已启动${Font_color_suffix}"
+		echo -e " 当前状态: Aria2 ${Green_font_prefix}已安装${Font_color_suffix} 并 ${Green_font_prefix}已启动${Font_color_suffix}"
 	else
-		echo -e " 当前状态: ${Green_font_prefix}已安装${Font_color_suffix} 但 ${Red_font_prefix}未启动${Font_color_suffix}"
+		echo -e " 当前状态: Aria2 ${Green_font_prefix}已安装${Font_color_suffix} 但 ${Red_font_prefix}未启动${Font_color_suffix}"
 	fi
 else
-	echo -e " 当前状态: ${Red_font_prefix}未安装${Font_color_suffix}"
+	echo -e " 当前状态: Aria2 ${Red_font_prefix}未安装${Font_color_suffix}"
 fi
 echo
 stty erase '^H' && read -p " 请输入数字 [0-10]:" num
