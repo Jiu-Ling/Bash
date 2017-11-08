@@ -82,6 +82,9 @@ Centos_Install(){
   echo -e "${Info} Aria2安装成功！"
 }
 Debian_Install(){
+        if [[ ${release} == "centos" ]]; then
+	exit 1
+	fi
 	apt-get update
 	apt-get install -y make gcc g++ sed vim git sed nettle-dev libgmp-dev libssh2-1-dev libc-ares-dev libxml2-dev zlib1g-dev libsqlite3-dev pkg-config libgpg-error-dev libssl-dev libexpat1-dev libxml2-dev libcppunit-dev autoconf automake autotools-dev autopoint libtool libxml2-dev openssl gettext
   mkdir /etc/aria2
