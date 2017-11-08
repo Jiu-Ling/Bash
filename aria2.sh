@@ -158,6 +158,7 @@ check_installed_status
 apt-get install curl sed wget -y
 	Set_Url
 	Set_Mail
+	Config_True
 	curl https://getcaddy.com | bash -s personal http.filemanager
 	[[ -e /usr/local/bin/caddy ]] && echo -e "${Info} Caddy安装成功！"
   mkdir /etc/caddy
