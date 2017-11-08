@@ -147,7 +147,7 @@ Set_Mail(){
 Config_True(){
   while [ "$go" != 'y' ] && [ "$go" != 'n' ]
   do
-	read -p "want to install Bt-Panel to the $setup_path directory now?(y/n): " go;
+	read -p "您的网站 https://${Url} 确认已经解析好了么(不要加CDN)，确认请y继续(y/n): " go;
    done
    if [ "$go" == 'n' ];then
 	exit 1
