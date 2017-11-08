@@ -5,11 +5,11 @@ export PATH
 #=================================================
 #	System Required: CentOS 6+/Debian 6+/Ubuntu 14.04+
 #	Description: Install Aria2c
-#	Version: 1.0
+#	Version: 1.1
 #	Author: Jiuling
 #=================================================
 
-sh_ver="1.0"
+sh_ver="1.1"
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
 Info="${Green_font_prefix}[信息]${Font_color_suffix}"
 Error="${Red_font_prefix}[错误]${Font_color_suffix}"
@@ -136,24 +136,26 @@ Set_Url(){
 	echo "请输入网站网址（不带http(s)）："
 	stty erase '^H' && read -p "(默认: localhost):" Url
 	[[ -z "${Url}" ]] && Url="localhost"
-  echo && echo ${Separator_1} && echo -e "	SSL私钥路径 : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
+  echo && echo ${Separator_1} && echo -e "	 网址 : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_Mail(){
 	echo "请输入您的邮箱(用于自动申请SSL证书)："
-	stty erase '^H' && read -p "(默认: localhost):" Url
-	[[ -z "${Url}" ]] && Url="localhost"
-  echo && echo ${Separator_1} && echo -e "	SSL私钥路径 : ${Green_font_prefix}${Url}${Font_color_suffix}" && echo ${Separator_1} && echo
+	stty erase '^H' && read -p "(默认: admin@${Url}):" Mail
+	[[ -z "${Mail}" ]] && Url="admin@${Url}"
+  echo && echo ${Separator_1} && echo -e "	邮箱 : ${Green_font_prefix}${Mail}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Ng_SSL_Filemanager_Install(){
 check_installed_status
 apt-get install curl sed wget -y
 	Set_Url
+	Set_Mail
 	curl https://getcaddy.com | bash -s personal http.filemanager
 	[[ -e /usr/local/bin/caddy ]] && echo -e "${Info} Caddy安装成功！"
   mkdir /etc/caddy
   wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/config.conf" -O /etc/caddy/config.conf
   [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy 配置文件下载失败 !" && rm -rf /etc/caddy/config.conf && exit 1
   sed -i 's,https:\/\/example.com,https:\/\/'${Url}',' /etc/caddy/config.conf
+  sed -i 's:h::/example.com,https:\/\/'${Url}',' /etc/caddy/config.conf
   mkdir /www && mkdir /www/wwwroot && mkdir /etc/filemanager && mkdir /home/downloads
   cd /www/wwwroot
   git clone https://github.com/Thnineer/AriaNg-DailyBuild.git
