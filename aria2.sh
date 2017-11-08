@@ -155,7 +155,7 @@ apt-get install curl sed wget -y
   wget --no-check-certificate -N "https://raw.githubusercontent.com/Thnineer/Bash/master/init/config.conf" -O /etc/caddy/config.conf
   [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy 配置文件下载失败 !" && rm -rf /etc/caddy/config.conf && exit 1
   sed -i 's,https:\/\/example.com,https:\/\/'${Url}',' /etc/caddy/config.conf
-  sed -i '' /etc/caddy/config.conf
+  sed -i 's:mailexample:'${Mail}':' /etc/caddy/config.conf
   mkdir /www && mkdir /www/wwwroot && mkdir /etc/filemanager && mkdir /home/downloads
   cd /www/wwwroot
   git clone https://github.com/Thnineer/AriaNg-DailyBuild.git
@@ -163,7 +163,8 @@ apt-get install curl sed wget -y
   [[ ! -s "/www/wwwroot/ariang/index.html" ]] && echo -e "${Error} AriaNG 下载失败 !" && rm -rf /www/wwwroot/ariang && exit 1
   ulimit -n 51200
   Start_caddy
-  echo -e "${Info} Filemanager管理地址：https://${Url}/file" && exit 1
+  echo -e "${Info} Filemanager管理地址：https://${Url}/file
+  默认账号密码：admin admin 请及时更改！" && exit 1
 }
 Write_Dir(){
 	cat >/tmp/a<<-EOF
