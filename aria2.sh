@@ -299,7 +299,7 @@ case "$num" in
 	Restart_caddy
 	;;
 	10)
-	View_Log
+	View_Log 
 	;;
 	*)
 	echo "请输入正确数字 [1-10]"
