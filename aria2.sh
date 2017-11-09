@@ -19,11 +19,7 @@ file="/etc/aria2"
 aria2c_conf="${file}/aria2c.conf"
 aria2c_log="/etc/aria2/aria2.log"
 Aria2c_File(){
-        aria2c="/usr/local/bin/aria2c" 
-	        cat /etc/*-release | grep 8.9\..* | grep -i debian>/dev/null
-        if [[ $? = 1 ]]; then
-                aria2c="/usr/bin/aria2c"
-        fi
+        aria2c="/usr/local/bin/aria2c"
         cat /etc/*-release | grep 9\..* | grep -i debian>/dev/null
         if [[ $? = 1 ]]; then
                 aria2c="/usr/bin/aria2c"
