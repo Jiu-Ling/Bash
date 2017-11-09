@@ -76,12 +76,14 @@ Centos_Install_Yum(){
 		if [[ $? = 1 ]]; then
 			wget https://copr.fedoraproject.org/coprs/rhscl/devtoolset-3/repo/epel-6/rhscl-devtoolset-3-epel-6.repo -qO /etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo
 			[[ ! -e "/etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo" ]] && echo -e "${Error} CentOS 6 Repo 配置文件下载失败 !" && exit 1
-			yum install devtoolset-3-gcc devtoolset-3-gcc-c++ devtoolset-3-binutils devtoolset-3-gcc-gfortran sed -y
+			yum install devtoolset-3-gcc devtoolset-3-gcc-c++ devtoolset-3-binutils devtoolset-3-gcc-gfortran sed clang -y
+			yum groupinstall "Development Tools" -y
 			echo -e "${Tip} 请执行 ${Green_font_prefix}scl enable devtoolset-3 bash${Font_color_suffix} 后运行 Centos 安装 Aria2 步骤二" && exit 1
 		fi
 		wget https://copr.fedoraproject.org/coprs/rhscl/devtoolset-3-el7/repo/epel-7/rhscl-devtoolset-3-el7-epel-7.repo -qO /etc/yum.repos.d/rhscl-devtoolset-3-el7-epel-7.repo
 		[[ ! -e "/etc/yum.repos.d/rhscl-devtoolset-3-el7-epel-7.repo" ]] && echo -e "${Error} CentOS 7 Repo 配置文件下载失败 !" && exit 1
-		yum install devtoolset-3-gcc devtoolset-3-gcc-c++ devtoolset-3-binutils devtoolset-3-gcc-gfortran sed -y
+		yum install devtoolset-3-gcc devtoolset-3-gcc-c++ devtoolset-3-binutils devtoolset-3-gcc-gfortran sed clang -y
+		yum groupinstall "Development Tools"
 		echo -e "${Tip} 请执行 ${Green_font_prefix}scl enable devtoolset-3 bash${Font_color_suffix} 后运行 Centos 安装 Aria2 步骤二" && exit 1
 		fi
 }
