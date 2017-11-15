@@ -18,7 +18,7 @@ Separator_1="——————————————————————�
 file="/etc/aria2"
 aria2c_conf="${file}/aria2c.conf"
 aria2c_log="/etc/aria2/aria2.log"
-aria2c="/usr/local/bin/aria2"
+aria2c="/usr/local/bin/aria2c"
 
 #检查操作系统
 check_sys(){
@@ -82,7 +82,7 @@ Centos_Install(){
 	mkdir /etc/aria2
 	cd /etc/aria2
   wget --no-check-certificate https://github.com/aria2/aria2/releases/download/release-1.33.0/aria2-1.33.0.tar.gz
-    [[ ! -e "/etc/aria2/aria2-1.33.0.tar.gz" ]] && echo -e "${Error} Aria2源码下载失败 !" && exit 1
+  [[ ! -e "/etc/aria2/aria2-1.33.0.tar.gz" ]] && echo -e "${Error} Aria2源码下载失败 !" && exit 1
   tar xzvf aria2-1.33.0.tar.gz
   cd aria2-1.33.0
   sed -i s"/1\, 16\,/1\, 64\,/" ./src/OptionHandlerFactory.cc
@@ -90,6 +90,7 @@ Centos_Install(){
   make && make install
   Download_Config
   Service_Aria2
+  [[ ! -e "${aria2c}" ]] && echo -e "${Error} Aria2安装失败 !" && exit 1
   echo -e "${Info} Aria2安装成功！"
 }
 Debian_Install(){
@@ -106,6 +107,7 @@ Debian_Install(){
   make install
   Download_Config
   Service_Aria2
+  [[ ! -e "${aria2c}" ]] && echo -e "${Error} Aria2安装失败 !" && exit 1
   echo -e "${Info} Aria2安装成功！"
 }
 
