@@ -255,7 +255,7 @@ echo && echo -e " Aria2 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}]$
  ————————————
  ${Green_font_prefix}10.${Font_color_suffix} 查看 日志信息
 ————————————" && echo
-if [[ ! -e ${aria2c} ]]; then
+if [[  -e ${aria2c} ]]; then
 	check_pid
 	if [[ ! -z "${PID}" ]]; then
 		echo -e " 当前状态: Aria2 ${Green_font_prefix}已安装${Font_color_suffix} 并 ${Green_font_prefix}已启动${Font_color_suffix}"
