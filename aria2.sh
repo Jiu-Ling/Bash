@@ -83,10 +83,10 @@ Centos_Install_Yum(){
 Centos_Install(){
 	mkdir /etc/aria2
 	cd /etc/aria2
-  wget --no-check-certificate https://github.com/aria2/aria2/releases/download/release-1.33.0/aria2-1.33.0.tar.gz
-  [[ ! -e "/etc/aria2/aria2-1.33.0.tar.gz" ]] && echo -e "${Error} Aria2源码下载失败 !" && exit 1
-  tar xzvf aria2-1.33.0.tar.gz
-  cd aria2-1.33.0
+  wget --no-check-certificate https://github.com/aria2/aria2/releases/download/release-1.33.1/aria2-1.33.1.tar.gz
+  [[ ! -e "/etc/aria2/aria2-1.33.1.tar.gz" ]] && echo -e "${Error} Aria2源码下载失败 !" && exit 1
+  tar xzvf aria2-1.33.1.tar.gz
+  cd aria2-1.33.1
   sed -i s"/1\, 16\,/1\, 64\,/" ./src/OptionHandlerFactory.cc
   ./configure
   make && make install
