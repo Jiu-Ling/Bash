@@ -5,11 +5,11 @@ export PATH
 #=================================================
 #	System Required: CentOS 6+/Debian 6+/Ubuntu 14.04+
 #	Description: Install Aria2c
-#	Version: 1.2
+#	Version: 1.21
 #	Author: Jiuling
 #=================================================
 
-sh_ver="1.2"
+sh_ver="1.21"
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
 Info="${Green_font_prefix}[信息]${Font_color_suffix}"
 Error="${Red_font_prefix}[错误]${Font_color_suffix}"
@@ -69,12 +69,14 @@ Centos_Install_Yum(){
 			[[ ! -e "/etc/yum.repos.d/rhscl-devtoolset-3-epel-6.repo" ]] && echo -e "${Error} CentOS 6 Repo 配置文件下载失败 !" && exit 1
 			yum install devtoolset-3-gcc devtoolset-3-gcc-c++ devtoolset-3-binutils devtoolset-3-gcc-gfortran sed clang -y
 			yum groupinstall "Development Tools" -y
+			yum remove gcc gcc-c++ -y
 			echo -e "${Tip} 请执行 ${Green_font_prefix}scl enable devtoolset-3 bash${Font_color_suffix} 后运行 Centos 安装 Aria2 步骤二" && exit 1
 		fi
 		wget https://copr.fedoraproject.org/coprs/rhscl/devtoolset-3-el7/repo/epel-7/rhscl-devtoolset-3-el7-epel-7.repo -qO /etc/yum.repos.d/rhscl-devtoolset-3-el7-epel-7.repo
 		[[ ! -e "/etc/yum.repos.d/rhscl-devtoolset-3-el7-epel-7.repo" ]] && echo -e "${Error} CentOS 7 Repo 配置文件下载失败 !" && exit 1
 		yum install devtoolset-3-gcc devtoolset-3-gcc-c++ devtoolset-3-binutils devtoolset-3-gcc-gfortran sed clang -y
 		yum groupinstall "Development Tools"
+		yum remove gcc gcc-c++ -y
 		echo -e "${Tip} 请执行 ${Green_font_prefix}scl enable devtoolset-3 bash${Font_color_suffix} 后运行 Centos 安装 Aria2 步骤二" && exit 1
 		fi
 }
