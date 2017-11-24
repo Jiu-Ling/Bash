@@ -129,15 +129,6 @@ fi
 
 
 echo "####################Congratulations########################"
-echo "Total OneinStack Install Time: ${CQUESTION}${installTime}${CEND} minutes"
+echo "Total OneinStack PHP Install Done!"
 [ "${PHP_yn}" == 'y' ] && echo -e "\n$(printf "%-32s" "PHP install dir:")${CMSG}${php_install_dir}${CEND}"
-while :; do echo
-  echo "${CMSG}Please restart the server and see if the services start up fine.${CEND}"
-  read -p "Do you want to restart OS ? [y/n]: " restart_yn
-  if [[ ! "${restart_yn}" =~ ^[y,n]$ ]]; then
-    echo "${CWARNING}input error! Please only input 'y' or 'n'${CEND}"
-  else
-    break
-  fi
-done
-[ "${restart_yn}" == 'y' ] && reboot
+echo "###########################################################"
