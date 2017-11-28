@@ -238,7 +238,6 @@ View_Log(){
 }
 check_sys
 [[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && [[ ${release} != "centos" ]] && echo -e "${Error} 本脚本不支持当前系统 ${release} !" && exit 1
-Aria2c_File
 IP=`wget -qO- -t1 -T2 ipinfo.io/ip`      
 echo && echo -e " Aria2 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
   -- By Jiuling 您的IP地址：${IP} --
