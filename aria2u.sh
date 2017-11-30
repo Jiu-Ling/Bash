@@ -442,7 +442,7 @@ case "$numc" in
 	2)
 	Ng_SSL_Filemanager_Install_H5ai
 	;;
-  3)
+        3)
 	Start_caddy
 	;;
 	4)
@@ -476,6 +476,7 @@ case "$num" in
 	;;
 	2)
 	Caddy_Buzhou
+	;;
 	*)
 	echo "请输入正确数字 [1-2]"
 	;;
