@@ -222,7 +222,6 @@ Install_PHP70(){
 	echo -e "${Info} PHP 7.0 安装成功！"
 }
 Ng_SSL_Filemanager_Install_H5ai(){
-	check_caddy_installed_status
   if [[ ${release} == "centos" ]]; then
     yum install curl sed wget unzip -y
   else
@@ -291,7 +290,6 @@ Config_True(){
 	fi
 }
 Ng_SSL_Filemanager_Install(){
-  check_caddy_installed_status
   if [[ ${release} == "centos" ]]; then
     yum install curl sed wget -y
   else
