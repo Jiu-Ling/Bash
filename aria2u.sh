@@ -255,8 +255,11 @@ Ng_SSL_Filemanager_Install_H5ai(){
   sed -i 's;https:\/\/teduis.com\/file;https:\/\/'${Url}'/file;' /home/_h5ai/public/js/scripts.js
   Start_caddy
   Service_caddy
-  echo -e "${Info} Filemanager管理地址：https://${Url}/file
-  				 ${Info} 默认账号密码：admin admin 请及时更改！" && exit 1
+  echo -e "${Info} 安装成功!
+  ${Info} Ariang面板地址:https://${Url}:7878
+  ${Info} Filemanager管理地址：https://${Url}/file
+  ${Info} 默认账号密码：admin admin 请及时更改！" && exit 1
+}
 # 下载配置文件
 Download_Config(){
 	cd /etc/aria2
