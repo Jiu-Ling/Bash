@@ -31,7 +31,7 @@ test -x $DAEMON || exit 0
 export CADDYPATH=/etc/ssl/caddy
 
 # Set the ulimits
-ulimit -n 8192
+ulimit -n 51200
 
 
 start() {
