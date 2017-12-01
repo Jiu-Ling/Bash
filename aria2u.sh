@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+PATH=/opt/rh/devtoolset-3/root/usr/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
 export PATH
 
 #=================================================
@@ -174,11 +174,11 @@ Service_Caddy(){
 }
 PHP_Install(){
         if [[ ${release} == "centos" ]]; then
-                Install_PHP70
 		Centos_Install_Ffmpeg
-        fi
                 Install_PHP70
+        fi
 		Debian_Install_Ffmpeg
+                Install_PHP70
 }
 Centos_Install_Ffmpeg(){
 	yum update
