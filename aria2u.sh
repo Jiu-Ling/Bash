@@ -186,9 +186,10 @@ Centos_Install_Ffmpeg(){
 	yum -y groupinstall "Development Tools"
 	mkdir /etc/ffmpeg
 	cd /etc/ffmpeg
-  git clone https://github.com/markus-perl/ffmpeg-build-script.git
-  cd ffmpeg-build-script
+  wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/build-ffmpeg.sh -qO /etc/ffmpeg/build-ffmpeg
+  chmod +x build-ffmpeg
   ./build-ffmpeg --build
+  ./build-ffmpeg --cleanup
   [[ ! -s "/usr/local/bin/ffmpeg" ]] && echo -e "${Error} Ffmpeg 安装失败 !"  && exit 1
   echo -e "${Info} Ffmpeg 安装成功！"
 }
@@ -198,9 +199,10 @@ Debian_Install_Ffmpeg(){
 	apt-get install build-essential curl -y
 	mkdir /etc/ffmpeg
 	cd /etc/ffmpeg
-  git clone https://github.com/markus-perl/ffmpeg-build-script.git
-  cd ffmpeg-build-script
+  wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/build-ffmpeg.sh -qO /etc/ffmpeg/build-ffmpeg
+  chmod +x build-ffmpeg
   ./build-ffmpeg --build
+  ./build-ffmpeg --cleanup
   [[ ! -s "/usr/local/bin/ffmpeg" ]] && echo -e "${Error} Ffmpeg 安装失败 !"  && exit 1
   echo -e "${Info} Ffmpeg 安装成功！"
 }
