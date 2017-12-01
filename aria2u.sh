@@ -182,7 +182,7 @@ PHP_Install(){
 }
 Centos_Install_Ffmpeg(){
 	yum update
-	yum install -y libtool make 
+	yum install -y libtool make git
 	yum -y groupinstall "Development Tools"
 	mkdir /etc/ffmpeg
 	cd /etc/ffmpeg
@@ -194,7 +194,7 @@ Centos_Install_Ffmpeg(){
 }
 Debian_Install_Ffmpeg(){
 	apt-get update
-	apt-get install -y libtool make 
+	apt-get install -y libtool make git
 	apt-get install build-essential curl -y
 	mkdir /etc/ffmpeg
 	cd /etc/ffmpeg
