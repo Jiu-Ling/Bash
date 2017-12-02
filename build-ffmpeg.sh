@@ -370,7 +370,7 @@ echo ""
 if [[ ! $SKIPINSTALL == "yes" ]]; then
 	if command_exists "sudo"; then
 
-		read -r -p "Install the binary to your $INSTALL_FOLDER folder? [Y/n] " response
+response=y
 
 		case $response in
     		[yY][eE][sS]|[yY])
