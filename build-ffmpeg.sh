@@ -365,21 +365,8 @@ fi
 echo ""
 echo "Building done. The binary can be found here: $WORKSPACE/bin/ffmpeg"
 echo ""
-
-
-if [[ ! $SKIPINSTALL == "yes" ]]; then
-	if command_exists "sudo"; then
-
-	read -r -p "Install the binary to your $INSTALL_FOLDER folder? [Y/n] " response
-
-		case $response in
-    		[yY][eE][sS]|[yY])
-        		sudo cp "$WORKSPACE/bin/ffmpeg" "$INSTALL_FOLDER/ffmpeg"
-        		sudo cp "$WORKSPACE/bin/ffprobe" "$INSTALL_FOLDER/ffprobe"
-        		echo "Done. ffmpeg is now installed to your system"
-        		;;
-		esac
-	fi
-fi
+cp "$WORKSPACE/bin/ffmpeg" "$INSTALL_FOLDER/ffmpeg"
+cp "$WORKSPACE/bin/ffprobe" "$INSTALL_FOLDER/ffprobe"
+echo "Done. ffmpeg is now installed to your system"
 
 exit 0
