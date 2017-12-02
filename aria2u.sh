@@ -241,7 +241,7 @@ Ng_SSL_Filemanager_Install_H5ai(){
   [[ ! -s "/etc/caddy/config.conf" ]] && echo -e "${Error} Caddy 配置文件下载失败 !" && rm -rf /etc/caddy/config.conf && exit 1
   sed -i 's,https:\/\/example.com,https:\/\/'${Url}',g' /etc/caddy/config.conf
   sed -i 's:mailexample:'${Mail}':g' /etc/caddy/config.conf
-  mkdir /etc/filemanager && mkdir -p /home/h5ai/downloads
+  mkdir /etc/filemanager && mkdir  /home/h5ai/ && mkdir /home/h5ai/downloads
   cd /home/
   git clone https://github.com/Thnineer/AriaNg-DailyBuild.git
   mv AriaNg-DailyBuild ariang
