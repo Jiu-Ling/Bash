@@ -16,7 +16,6 @@ DESC="the caddy web server"
 NAME=caddy
 DAEMON=/usr/local/bin/caddy
 
-DAEMONUSER=www-data
 PIDFILE=/var/run/$NAME.pid
 LOGFILE=/var/log/$NAME.log
 CONFIGFILE=/etc/caddy/Caddyfile
@@ -38,7 +37,7 @@ start() {
     $USERBIND $DAEMON
     touch $LOGFILE && chown $DAEMONUSER $LOGFILE
     start-stop-daemon --start --quiet --make-pidfile --pidfile $PIDFILE \
-        --background --chuid $DAEMONUSER --oknodo --exec $DAEMON -- $DAEMONOPTS
+        --background --oknodo --exec $DAEMON -- $DAEMONOPTS
 }
 
 stop() {
