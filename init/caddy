@@ -35,7 +35,7 @@ ulimit -n 51200
 
 start() {
     $USERBIND $DAEMON
-    touch $LOGFILE && chown $DAEMONUSER $LOGFILE
+    touch $LOGFILE && chown +x $LOGFILE
     start-stop-daemon --start --quiet --make-pidfile --pidfile $PIDFILE \
         --background --oknodo --exec $DAEMON -- $DAEMONOPTS
 }
