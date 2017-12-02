@@ -253,8 +253,8 @@ Ng_SSL_Filemanager_Install_H5ai(){
   echo "* soft nofile 51200" >> /etc/security/limits.conf
   echo "* hard nofile 51200" >> /etc/security/limits.conf
   echo "ulimit -SHn 51200" >> /etc/profile
-  sed -i 's;https:\/\/teduis.com\/ariang;https:\/\/'${Url}':7878;' /home/_h5ai/public/js/scripts.js
-  sed -i 's;https:\/\/teduis.com\/file;https:\/\/'${Url}'/file;' /home/_h5ai/public/js/scripts.js
+  sed -i 's;https:\/\/teduis.com\/ariang;https:\/\/'${Url}':7878;' /home/h5ai/_h5ai/public/js/scripts.js
+  sed -i 's;https:\/\/teduis.com\/file;https:\/\/'${Url}'\/file;' /home/h5ai/_h5ai/public/js/scripts.js
   Start_caddy
   Service_Caddy
   echo -e "${Info} 安装成功!
