@@ -190,7 +190,7 @@ Centos_Install_Ffmpeg(){
   chmod +x build-ffmpeg
   ./build-ffmpeg --build
   ./build-ffmpeg --cleanup
-  [[ ! -s "/usr/local/bin/ffmpeg" ]] && echo -e "${Error} Ffmpeg 安装失败 !"  && exit 1
+  [[ ! -s "/usr/bin/ffmpeg" ]] && echo -e "${Error} Ffmpeg 安装失败 !"  && exit 1
   echo -e "${Info} Ffmpeg 安装成功！"
 }
 Debian_Install_Ffmpeg(){
@@ -203,7 +203,7 @@ Debian_Install_Ffmpeg(){
   chmod +x build-ffmpeg
   ./build-ffmpeg --build
   ./build-ffmpeg --cleanup
-  [[ ! -s "/usr/local/bin/ffmpeg" ]] && echo -e "${Error} Ffmpeg 安装失败 !"  && exit 1
+  [[ ! -s "/usr/bin/ffmpeg" ]] && echo -e "${Error} Ffmpeg 安装失败 !"  && exit 1
   echo -e "${Info} Ffmpeg 安装成功！"
 }
 Install_PHP70(){
