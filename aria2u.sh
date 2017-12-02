@@ -320,7 +320,7 @@ Ng_SSL_Filemanager_Install(){
   Start_caddy
   Service_Caddy
   echo -e "${Info} Filemanager管理地址：https://${Url}/file
-  				 ${Info} 默认账号密码：admin admin 请及时更改！" && exit 1
+${Info} 默认账号密码：admin admin 请及时更改！" && exit 1
 }
 Write_Dir(){
 	cat >/tmp/a<<-EOF
