@@ -256,7 +256,7 @@ Ng_SSL_Filemanager_Install_H5ai(){
   sed -i 's;https:\/\/teduis.com\/ariang;https:\/\/'${Url}':7878;' /home/_h5ai/public/js/scripts.js
   sed -i 's;https:\/\/teduis.com\/file;https:\/\/'${Url}'/file;' /home/_h5ai/public/js/scripts.js
   Start_caddy
-  Service_caddy
+  Service_Caddy
   echo -e "${Info} 安装成功!
 ${Info} Ariang面板地址:https://${Url}:7878
 ${Info} Filemanager管理地址：https://${Url}/file
