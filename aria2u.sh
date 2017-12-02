@@ -176,9 +176,10 @@ PHP_Install(){
         if [[ ${release} == "centos" ]]; then
 		Centos_Install_Ffmpeg
                 Install_PHP70
-        fi
+        else
 		Debian_Install_Ffmpeg
                 Install_PHP70
+	fi
 }
 Centos_Install_Ffmpeg(){
 	yum update
