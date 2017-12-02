@@ -18,7 +18,7 @@ DAEMON=/usr/local/bin/caddy
 
 PIDFILE=/var/run/$NAME.pid
 LOGFILE=/var/log/$NAME.log
-CONFIGFILE=/etc/caddy/Caddyfile
+CONFIGFILE=/etc/caddy/config.conf
 DAEMONOPTS="-agree=true -log=$LOGFILE -conf=$CONFIGFILE"
 
 USERBIND="setcap cap_net_bind_service=+ep"
