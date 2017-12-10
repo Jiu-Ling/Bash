@@ -190,7 +190,6 @@ Centos_Install_Ffmpeg(){
   wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/build-ffmpeg.sh -qO /etc/ffmpeg/build-ffmpeg
   chmod +x build-ffmpeg
   ./build-ffmpeg --build
-  ./build-ffmpeg --cleanup
   [[ ! -s "/usr/bin/ffmpeg" ]] && echo -e "${Error} Ffmpeg 安装失败 !"  && exit 1
   echo -e "${Info} Ffmpeg 安装成功！"
 }
@@ -312,7 +311,7 @@ Ng_SSL_Filemanager_Install(){
   cd /home/
   git clone https://github.com/Thnineer/AriaNg-DailyBuild.git
   mv AriaNg-DailyBuild ariang
-  [[ ! -s "/home/www/ariang/index.html" ]] && echo -e "${Error} AriaNG 下载失败 !" && rm -rf /www/wwwroot/ariang && exit 1
+  [[ ! -s "/home/ariang/index.html" ]] && echo -e "${Error} AriaNG 下载失败 !" && rm -rf /www/wwwroot/ariang && exit 1
   ulimit -n 51200
   echo "* soft nofile 51200" >> /etc/security/limits.conf
   echo "* hard nofile 51200" >> /etc/security/limits.conf
