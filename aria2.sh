@@ -94,6 +94,7 @@ Centos_Install(){
   make && make install
   Download_Config
   Service_Aria2
+  BT-Tracker
   [[ ! -e "${aria2c}" ]] && echo -e "${Error} Aria2安装失败 !" && exit 1
   echo -e "${Info} Aria2安装成功！"
 }
@@ -111,8 +112,20 @@ Debian_Install(){
   make install
   Download_Config
   Service_Aria2
+  BT-Tracker
   [[ ! -e "${aria2c}" ]] && echo -e "${Error} Aria2安装失败 !" && exit 1
   echo -e "${Info} Aria2安装成功！"
+}
+
+BT-Tracker(){
+  wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/bt-tracker.sh -qO /etc/aria2/bt-tracker.sh
+  chmod +x /etc/aria2/bt-tracker.sh
+  cronfile = /tmp/crontab.${USER}
+  crontab -l > $cronfile
+  echo "*/30 * * * * bash /etc/aria2/bt-tracker.sh" >> $cronfile
+  crontab $cronfile
+  rm -rf $cronfile
+  echo -e "${Info} BT服务器自动更新设置成功！"
 }
 
 # 设置自启
