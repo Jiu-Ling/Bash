@@ -484,7 +484,7 @@ echo && echo -e " Aria2 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}]$
  ${Green_font_prefix}2.${Font_color_suffix} Web面板 安装及管理
 ————————————" && echo
 echo
-stty erase '^H' && read -p " 请输入数字 [0-2]:" num
+stty erase '^H' && read -p " 请输入数字 [1-2]:" num
 case "$num" in
 	1)
 	Aria2_Buzhou
