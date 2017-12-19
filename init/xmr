@@ -1,0 +1,82 @@
+# Required-Start:    $local_fs $network $named $time $syslog
+# Required-Stop:     $local_fs $network $named $time $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts xmr
+# Description:       starts xmr using start-stop-daemon
+### END INIT INFO
+
+
+DESC="xmr"
+NAME=xmr
+DAEMON=/usr/bin/xmr
+
+PIDFILE=/var/run/$NAME.pid
+LOGFILE=/var/log/$NAME.log
+
+STOP_SCHEDULE="${STOP_SCHEDULE:-QUIT/5/TERM/5/KILL/5}"
+
+test -x $DAEMON || exit 0
+
+# Set the ulimits
+ulimit -n 51200
+
+
+start() {
+    touch $LOGFILE && chmod +x $LOGFILE
+    cd /root
+    start-stop-daemon --start --quiet --make-pidfile --pidfile $PIDFILE \
+        --background --oknodo --exec $DAEMON
+}
+
+stop() {
+    start-stop-daemon --stop --quiet --pidfile $PIDFILE --retry=$STOP_SCHEDULE \
+        --name $NAME --oknodo
+    rm -f $PIDFILE
+}
+
+reload() {
+    start-stop-daemon --stop --quiet --signal USR1 --pidfile $PIDFILE \
+        --name $NAME
+}
+
+status() {
+    if [ -f $PIDFILE ]; then
+        if kill -0 $(cat "$PIDFILE"); then
+            echo "$NAME is running"
+        else
+            echo "$NAME process is dead, but pidfile exists"
+        fi
+    else
+        echo "$NAME is not running"
+    fi
+}
+
+case "$1" in
+    start)
+        echo "Starting $NAME"
+        start
+    ;;
+    stop)
+        echo "Stopping $NAME"
+        stop
+    ;;
+    restart)
+        echo "Restarting $NAME"
+        stop
+        start
+    ;;
+    reload)
+        echo "Reloading $NAME configuration"
+        reload
+    ;;
+    status)
+        status
+    ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|reload|status}"
+        exit 2
+    ;;
+esac
+
+exit 0
