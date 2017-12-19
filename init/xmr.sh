@@ -67,4 +67,4 @@ sed -i '/^\(\*\|root\).*\(hard\|soft\).*memlock/d' /etc/security/limits.conf
 echo -ne "*\thard\tmemlock\t$LIMIT\n*\tsoft\tmemlock\t$LIMIT\nroot\thard\tmemlock\t$LIMIT\nroot\tsoft\tmemlock\t$LIMIT\n" >>/etc/security/limits.conf
 sysctl -p
 cd /root
-service xmr start
+screen xmr
