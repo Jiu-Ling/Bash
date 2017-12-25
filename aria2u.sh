@@ -65,6 +65,7 @@ Install_Aria2(){
 		Debian_Install
 }
 Centos_Install_Yum(){
+  yum install wget sed curl head gawk grep -y
 	if [[ ${release} = "centos" ]]; then
 		cat /etc/redhat-release |grep 7\..*|grep -i centos>/dev/null
 		if [[ $? = 1 ]]; then
@@ -86,12 +87,14 @@ Centos_Install_Yum(){
 		fi
 }
 Centos_Install(){
-	mkdir /etc/aria2
-	cd /etc/aria2
-  wget --no-check-certificate https://github.com/aria2/aria2/releases/download/release-1.33.1/aria2-1.33.1.tar.gz
-  [[ ! -e "/etc/aria2/aria2-1.33.1.tar.gz" ]] && echo -e "${Error} Aria2源码下载失败 !" && exit 1
-  tar xzvf aria2-1.33.1.tar.gz
-  cd aria2-1.33.1
+  mkdir /etc/aria2
+  cd /etc/aria2
+  echo -e "${Info} 检查版本中..."
+  Aria2ver=`wget -qO- https://github.com/aria2/aria2/releases | grep css-truncate-target | head -n 1 | awk '{print $2}' | sed 's/class=\"css-truncate-target\">release-//g' | sed 's/<\/span>//g'`
+  wget --no-check-certificate https://github.com/aria2/aria2/releases/download/release-${Aria2ver}/aria2-${Aria2ver}.tar.gz
+  [[ ! -e "/etc/aria2/aria2-${Aria2ver}.tar.gz" ]] && echo -e "${Error} Aria2源码下载失败 !" && exit 1
+  tar xzvf aria2-${Aria2ver}.tar.gz
+  cd aria2-${Aria2ver}
   sed -i s"/1\, 16\,/1\, 64\,/" ./src/OptionHandlerFactory.cc
   ./configure
   make && make install
