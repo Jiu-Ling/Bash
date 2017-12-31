@@ -142,7 +142,7 @@ Set_Mu_Config(){
 	echo "请输入单端口多用户混淆后缀(与面板Config文件里相同)："
 	stty erase '^H' && read -p "(默认: baidu.com):" Mu_Config
 	[[ -z "${Mu_Config}" ]] && Mu_Config="baidu.com"
-	echo && echo ${Separator_1} && echo -e "	单端口多用户混淆后缀 : ${Green_font_prefix}${Install_Directory}${Mu_Config}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "	单端口多用户混淆后缀 : ${Green_font_prefix}${Install_Directory}${Mu_Config}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_Modle_Config(){
 	echo -e "请设置加速算法(延时大于90ms请选1，小于90ms请选2)：
