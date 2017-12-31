@@ -57,9 +57,7 @@ Install_SSR(){
 	Service_SSR
 	echo -e "${Info} 开始写入 ShadowsocksR配置文件..."
 	Install_SSR_A
-	Write_configuration
 	Write_configuration_mysql
-	Write_configuration_Type
 	echo -e "${Info} 开始设置 iptables防火墙..."
 	Set_iptables
 	echo -e "${Info} 开始添加 iptables防火墙规则..."
