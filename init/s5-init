@@ -14,8 +14,8 @@
 
 NAME="AShadowsocksR"
 NAME_BIN="server.py"
-FOLDER="/usr/local/shadowsocksr"
-BIN="/usr/local/shadowsocksr/server.py"
+FOLDER="/usr/local/shadowsocks"
+BIN="/usr/local/shadowsocks/server.py"
 Info_font_prefix="\033[32m" && Error_font_prefix="\033[31m" && Info_background_prefix="\033[42;37m" && Error_background_prefix="\033[41;37m" && Font_suffix="\033[0m"
 RETVAL=0
 
