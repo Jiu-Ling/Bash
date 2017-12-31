@@ -151,9 +151,9 @@ Set_Modle_Config(){
 	stty erase '^H' && read -p "(默认: 1. hybla):" Modle_Config
 	[[ -z "${Modle_Config}" ]] && Modle_Config="hybla"
 	if [[ ${Modle_Config} == "1" ]]; then
-		SQL_IPV6="hybla"
+		Modle_Config="hybla"
 	elif [[ ${Modle_Config} == "2" ]]; then
-		SQL_IPV6="htcp"
+		Modle_Config="htcp"
 	fi
 	echo && echo ${Separator_1} && echo -e "	加速算法 : ${Green_font_prefix}${Modle_Config}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
