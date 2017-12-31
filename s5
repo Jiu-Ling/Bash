@@ -77,7 +77,6 @@ Set_config_all(){
 	Set_Sql_Pwd
 	Set_Node_ID
 	Set_Iptables_Port
-	Set_Transfer_Mul
 	Set_Mu_Config
 	Set_Install_Directory
 }
@@ -243,24 +242,24 @@ Service_SSR(){
 }
 
 Write_Service_Centos(){
-		if ! wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/centos-ssr -O /etc/init.d/${Service_ID}; then
+		if ! wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/s5-init -O /etc/init.d/${Service_ID}; then
 			echo -e "${Error} ShadowsocksR服务 管理脚本下载失败 !" && exit 1
 		fi
 		Write_Dir
 		sed -i 's/NAME="AShadowsocksR"/NAME="'${Service_ID}'-ShadowsocksR"/' /etc/init.d/${Service_ID}
-		sed -i 's:FOLDER="\/usr\/local\/shadowsocksr":FOLDER="'${Install_Directory_A}'shadowsocksr":' /etc/init.d/${Service_ID}
-		sed -i 's:BIN="\/usr\/local\/shadowsocksr\/server.py":BIN="'${Install_Directory_A}'shadowsocksr\/server.py":' /etc/init.d/${Service_ID}
+		sed -i 's:FOLDER="\/usr\/local\/shadowsocks":FOLDER="'${Install_Directory_A}'shadowsocks":' /etc/init.d/${Service_ID}
+		sed -i 's:BIN="\/usr\/local\/shadowsocks\/server.py":BIN="'${Install_Directory_A}'shadowsocks\/server.py":' /etc/init.d/${Service_ID}
 		echo "管理脚本设置成功！"
 }
 
 Write_Service_Debian(){
-		if ! wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/debian-ssr -O /etc/init.d/${Service_ID}; then
+		if ! wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/s5-init -O /etc/init.d/${Service_ID}; then
 			echo -e "${Error} ShadowsocksR服务 管理脚本下载失败 !" && exit 1
 		fi
 		Write_Dir
 		sed -i 's/NAME="AShadowsocksR"/NAME="'${Service_ID}'-ShadowsocksR"/' /etc/init.d/${Service_ID}
-		sed -i 's:FOLDER="\/usr\/local\/shadowsocksr":FOLDER="'${Install_Directory_A}'shadowsocksr' /etc/init.d/${Service_ID}
-		sed -i 's:BIN="\/usr\/local\/shadowsocksr\/server.py":BIN="'${Install_Directory_A}'shadowsocksr\/server.py":' /etc/init.d/${Service_ID}
+		sed -i 's:FOLDER="\/usr\/local\/shadowsocks":FOLDER="'${Install_Directory_A}'shadowsocks' /etc/init.d/${Service_ID}
+		sed -i 's:BIN="\/usr\/local\/shadowsocks\/server.py":BIN="'${Install_Directory_A}'shadowsocks\/server.py":' /etc/init.d/${Service_ID}
 		echo "管理脚本设置成功！"
 }
 
