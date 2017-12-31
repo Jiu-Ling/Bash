@@ -80,7 +80,7 @@ Set_config_all(){
 	Set_Node_ID
 	Set_Iptables_Port
 	Set_Transfer_Mul
-	Set_config_Ipv6
+	Set_Mu_Config
 	Set_Install_Directory
 }
 
@@ -124,9 +124,9 @@ Set_Sql_Db(){
 	echo && echo ${Separator_1} && echo -e "	数据库名称 : ${Green_font_prefix}${SQL_DB}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_Node_ID(){
-	echo "请设置要安装的ShadowsocksR 服务端 节点ID"
-	stty erase '^H' && read -p "(默认: 1):" NODE_ID
-	[[ -z "${NODE_ID}" ]] && NODE_ID="1"
+	echo "请设置要安装的ShadowsocksR 服务端 节点ID(要保证与面板上对应)"
+	stty erase '^H' && read -p "(默认: 3):" NODE_ID
+	[[ -z "${NODE_ID}" ]] && NODE_ID="3"
 	echo && echo ${Separator_1} && echo -e "	节点ID : ${Green_font_prefix}${NODE_ID}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_Iptables_Port(){
@@ -135,30 +135,17 @@ Set_Iptables_Port(){
 	[[ -z "${SSR_Port}" ]] && SSR_Port="10000:20000"
 	echo && echo ${Separator_1} && echo -e "	节点ID : ${Green_font_prefix}${SSR_Port}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
-Set_config_Ipv6(){
-	echo -e "请选择是否为ShadowsocksR 服务端开启IPV6
- ${Green_font_prefix} 1.${Font_color_suffix} 关闭
- ${Green_font_prefix} 2.${Font_color_suffix} 开启" && echo
-	stty erase '^H' && read -p "(默认: 1. 关闭):" SQL_IPV6
-	[[ -z "${SQL_IPV6}" ]] && SQL_IPV6="false"
-	if [[ ${SQL_IPV6} == "1" ]]; then
-		SQL_IPV6="false"
-	elif [[ ${SQL_IPV6} == "2" ]]; then
-		SQL_IPV6="true"
-	fi
-	echo && echo ${Separator_1} && echo -e "	IPV6状态 : ${Green_font_prefix}${SQL_IPV6}${Font_color_suffix}" && echo ${Separator_1} && echo
-}
 Set_Install_Directory(){
 	echo "请输入安装服务端的目录(末尾必须加/)："
 	stty erase '^H' && read -p "(默认: /usr/local/):" Install_Directory
 	[[ -z "${Install_Directory}" ]] && Install_Directory="/usr/local/"
 	echo && echo ${Separator_1} && echo -e "	安装目录 : ${Green_font_prefix}${Install_Directory}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
-Set_Transfer_Mul(){
-	echo "请输入流量倍率(例如1.1)："
-	stty erase '^H' && read -p "(默认: 1.0):" Transfer_Mul
-	[[ -z "${Transfer_Mul}" ]] && Transfer_Mul="1.0"
-	echo && echo ${Separator_1} && echo -e "	流量倍率 : ${Green_font_prefix}${Transfer_Mul}${Font_color_suffix}" && echo ${Separator_1} && echo
+Set_Mu_Config(){
+	echo "请输入单端口多用户混淆后缀(与面板Config文件里相同)："
+	stty erase '^H' && read -p "(默认: baidu.com):" Mu_Config
+	[[ -z "${Mu_Config}" ]] && Mu_Config="baidu.com"
+	echo && echo ${Separator_1} && echo -e "	单端口多用户混淆后缀 : ${Green_font_prefix}${Install_Directory}${Mu_Config}" && echo ${Separator_1} && echo
 }
 Set_Modle_Config(){
 	echo -e "请设置加速算法(延时大于90ms请选1，小于90ms请选2)：
@@ -219,7 +206,7 @@ Centos_yum(){
 }
 Debian_apt(){
 	apt-get update
-	apt-get install -y vim git python-devel libffi-devel openssl-devel python-setuptools
+	apt-get install -y vim git python-dev libffi-dev openssl python-setuptools
 	easy_install pip
 	pip install cymysql
 }
@@ -238,8 +225,8 @@ Check_python(){
 # 下载 ShadowsocksR 服务端
 Download_SSR(){
 	cd "${Install_Directory}"
-	env GIT_SSL_NO_VERIFY=true git clone -b manyuser https://github.com/Thnineer/shadowsocksr.git
-	[[ ! -e ${Install_Directory}shadowsocksr ]] && echo -e "${Error} ShadowsocksR服务端 下载失败 !" && exit 1
+	env GIT_SSL_NO_VERIFY=true git clone -b manyuser https://github.com/glzjin/shadowsocks.git
+	[[ ! -e ${Install_Directory}shadowsocks ]] && echo -e "${Error} ShadowsocksR服务端 下载失败 !" && exit 1
 	echo -e "${Info} ShadowsocksR服务端 下载完成 !"
 }
 # 设置自启
@@ -281,8 +268,9 @@ Write_Service_Debian(){
 
 Install_SSR_A(){
 	cd "${Install_Directory}shadowsocksr"
-	./setup_cymysql.sh
-  ./initcfg.sh
+	pip install -r requirements.txt
+	cp apiconfig.py userapiconfig.py
+	cp config.json user-config.json
 }
 
 # Write File
@@ -293,63 +281,57 @@ EOF
 Install_Directory_A=`sed 's:\/:\\/:g' /tmp/a`
 rm -rf /tmp/a
 }
-
 # 写入配置信息
-Write_configuration(){
-	cat > ${Install_Directory}shadowsocksr/user-config.json<<-EOF
-{
-    "server": "0.0.0.0",
-    "server_ipv6": "::",
-    "server_port": 8388,
-    "local_address": "127.0.0.1",
-    "local_port": 1080,
-    "password": "m",
-    "method": "chacha20",
-    "protocol": "auth_aes128_sha1",
-    "protocol_param": "",
-    "obfs": "tls1.2_ticket_auth",
-    "obfs_param": "",
-    "speed_limit_per_con": 0,
-    "speed_limit_per_user": 0,
-    "additional_ports" : {},
-    "timeout": 120,
-    "udp_timeout": 60,
-    "dns_ipv6": ${SQL_IPV6},
-    "connect_verbose_info": 0,
-    "redirect": "",
-    "fast_open": false
-}
-EOF
 }
 Write_configuration_mysql(){
-	cat > ${Install_Directory}shadowsocksr/usermysql.json<<-EOF
-{
-    "host": "${SQL_IP}",
-    "port": ${SQL_PORT},
-    "user": "${SQL_USERNAME}",
-    "password": "${SQL_PWD}",
-    "db": "${SQL_DB}",
-    "node_id": ${NODE_ID},
-    "transfer_mul": ${Transfer_Mul},
-    "ssl_enable": 0,
-    "ssl_ca": "",
-    "ssl_cert": "",
-    "ssl_key": ""
-}
-EOF
-}
-Write_configuration_Type(){
-	cat > ${Install_Directory}shadowsocksr/userapiconfig.py<<-EOF
+	cat > ${Install_Directory}shadowsocks/userapiconfig.py<<-EOF
 # Config
-API_INTERFACE = 'legendsockssr' #mudbjson, sspanelv2, sspanelv3, sspanelv3ssr, glzjinmod, legendsockssr, muapiv2(not support)
-UPDATE_TIME = 60
-SERVER_PUB_ADDR = '127.0.0.1' # mujson_mgr need this to generate ssr link
-#mudb
+NODE_ID = ${NODE_ID}
+
+
+# hour,set 0 to disable
+SPEEDTEST = 6
+CLOUDSAFE = 1
+ANTISSATTACK = 0
+AUTOEXEC = 0
+
+MU_SUFFIX = '${Mu_Config}'
+MU_REGEX = '%5m%id.%suffix'
+
+SERVER_PUB_ADDR = '127.0.0.1'  # mujson_mgr need this to generate ssr link
+API_INTERFACE = 'glzjinmod'  # glzjinmod, modwebapi
+
+WEBAPI_URL = 'https://zhaoj.in'
+WEBAPI_TOKEN = 'glzjin'
+
+# mudb
 MUDB_FILE = 'mudb.json'
+
 # Mysql
-MYSQL_CONFIG = 'usermysql.json'
+MYSQL_HOST = '${SQL_IP}'
+MYSQL_PORT = ${SQL_PORT}
+MYSQL_USER = '${SQL_USERNAME}'
+MYSQL_PASS = '${SQL_PWD}'
+MYSQL_DB = '${SQL_DB}'
+
+MYSQL_SSL_ENABLE = 0
+MYSQL_SSL_CA = ''
+MYSQL_SSL_CERT = ''
+MYSQL_SSL_KEY = ''
+
 # API
-MUAPI_CONFIG = 'usermuapi.json'
+API_HOST = '127.0.0.1'
+API_PORT = 80
+API_PATH = '/mu/v2/'
+API_TOKEN = 'abcdef'
+API_UPDATE_TIME = 60
+
+# Manager (ignore this)
+MANAGE_PASS = 'Li9ja78h78HA78GH'
+# if you want manage in other server you should set this value to global ip
+MANAGE_BIND_IP = '127.0.0.1'
+# make sure this port is idle
+MANAGE_PORT = 23333
 EOF
 }
 
@@ -565,7 +547,7 @@ case "$num" in
 	8)
 	Lotserver_Config
 	;;
-  9)
+	9)
 	Install_Fail2ban
 	;;
 	*)
