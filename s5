@@ -264,7 +264,7 @@ Write_Service_Debian(){
 }
 
 Install_SSR_A(){
-	cd "${Install_Directory}shadowsocksr"
+	cd "${Install_Directory}shadowsocks"
 	pip install -r requirements.txt
 	cp apiconfig.py userapiconfig.py
 	cp config.json user-config.json
