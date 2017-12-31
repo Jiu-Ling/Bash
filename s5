@@ -279,7 +279,6 @@ Install_Directory_A=`sed 's:\/:\\/:g' /tmp/a`
 rm -rf /tmp/a
 }
 # 写入配置信息
-}
 Write_configuration_mysql(){
 	cat > ${Install_Directory}shadowsocks/userapiconfig.py<<-EOF
 # Config
