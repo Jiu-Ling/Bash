@@ -20,7 +20,7 @@ Info_font_prefix="\033[32m" && Error_font_prefix="\033[31m" && Info_background_p
 RETVAL=0
 
 check_running(){
-	PID=`ps -ef |grep "${NAME_BIN}" |grep -v "grep" |grep -v "init.d" |grep -v "service" |awk '{print $2}'`
+	PID=`ps -ef |grep "${BIN}" |grep -v "grep" |grep -v "init.d" |grep -v "service" |awk '{print $2}'`
 	if [[ ! -z ${PID} ]]; then
 		return 0
 	else
