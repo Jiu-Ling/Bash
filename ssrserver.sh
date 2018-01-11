@@ -5,11 +5,11 @@ export PATH
 #=================================================
 #	System Required: CentOS 6+/Debian 6+/Ubuntu 14.04+
 #	Description: Install the ShadowsocksR Server Manyuser
-#	Version: 0.9
+#	Version: 1.1
 #	Author: Jiuling Modify since Toyo
 #=================================================
 
-sh_ver="1.0 Beta"
+sh_ver="1.1"
 Libsodiumr_file="/usr/local/lib/libsodium.so"
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
 Info="${Green_font_prefix}[信息]${Font_color_suffix}"
@@ -264,7 +264,7 @@ Write_Service_Centos(){
 		Write_Dir
 		sed -i 's/NAME="AShadowsocksR"/NAME="'${Service_ID}'-ShadowsocksR"/' /etc/init.d/${Service_ID}
 		sed -i 's:FOLDER="\/usr\/local\/shadowsocksr":FOLDER="'${Install_Directory_A}'shadowsocksr":' /etc/init.d/${Service_ID}
-		sed -i 's:BIN="\/usr\/local\/shadowsocksr\/server.py":BIN="'${Install_Directory_A}'shadowsocksr\/server.py":' /etc/init.d/${Service_ID}
+		sed -i 's:"\/usr\/local\/shadowsocksr\/server.py":"'${Install_Directory_A}'shadowsocksr\/server.py":' /etc/init.d/${Service_ID}
 		echo "管理脚本设置成功！"
 }
 
@@ -275,7 +275,7 @@ Write_Service_Debian(){
 		Write_Dir
 		sed -i 's/NAME="AShadowsocksR"/NAME="'${Service_ID}'-ShadowsocksR"/' /etc/init.d/${Service_ID}
 		sed -i 's:FOLDER="\/usr\/local\/shadowsocksr":FOLDER="'${Install_Directory_A}'shadowsocksr' /etc/init.d/${Service_ID}
-		sed -i 's:BIN="\/usr\/local\/shadowsocksr\/server.py":BIN="'${Install_Directory_A}'shadowsocksr\/server.py":' /etc/init.d/${Service_ID}
+		sed -i 's:"\/usr\/local\/shadowsocksr\/server.py":"'${Install_Directory_A}'shadowsocksr\/server.py":' /etc/init.d/${Service_ID}
 		echo "管理脚本设置成功！"
 }
 
