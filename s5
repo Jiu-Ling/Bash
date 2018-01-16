@@ -171,7 +171,7 @@ Set_Ping3(){
 	echo && echo ${Separator_1} && echo -e "	平均Ping延迟除以3 : ${Green_font_prefix}${Ping3}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_Ping9(){
-	echo "请输入CPU核心数(1核为0，2核为1)："
+	echo "请输入平均Ping延迟除以9的数值(例如90ms，就写10)："
 	stty erase '^H' && read -p "(默认: 16):" Ping9
 	[[ -z "${Ping9}" ]] && Ping9="16"
 	echo && echo ${Separator_1} && echo -e "	平均Ping延迟除以9 : ${Green_font_prefix}${Ping9}${Font_color_suffix}" && echo ${Separator_1} && echo
@@ -470,9 +470,9 @@ Set_Lot_Config(){
 }
 
 Apply_Config(){
-	sed -i 's/shaperEnable="1"/shaperEnable="0"/' /appex/etc/config
-  sed -i 's/l2wQLimit="256 2048"/l2wQLimit="'${Memory}'"/' /appex/etc/config
-  sed -i 's/w2lQLimit="256 2048"/w2lQLimit="'${Memory}'"/' /appex/etc/config
+  sed -i 's/shaperEnable="1"/shaperEnable="0"/' /appex/etc/config
+  sed -i 's/l2wQLimit="256\ 2048"/l2wQLimit="\'${Memory}'"/' /appex/etc/config
+  sed -i 's/w2lQLimit="256\ 2048"/w2lQLimit="\'${Memory}'"/' /appex/etc/config
   sed -i 's/initialCwndWan="22"/initialCwndWan="'${Ping3}'"/' /appex/etc/config
   sed -i 's/smBurstMS="16"/smBurstMS="'${Ping9}'"/' /appex/etc/config
   sed -i 's/shortRttMS="0"/shortRttMS="'${Ping3}'"/' /appex/etc/config
