@@ -180,7 +180,7 @@ Set_Memory(){
 	echo "请输入内存大小 内存x8数值(例如256m内存，就写256 2048)："
 	stty erase '^H' && read -p "(默认: 256 2048):" Memory
 	[[ -z "${Memory}" ]] && Memory="256 2048"
-	echo && echo ${Separator_1} && echo -e "	核心数 : ${Green_font_prefix}${Memory}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "	数值 : ${Green_font_prefix}${Memory}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 
 # 安装 依赖
@@ -471,8 +471,9 @@ Set_Lot_Config(){
 
 Apply_Config(){
   sed -i 's/shaperEnable="1"/shaperEnable="0"/' /appex/etc/config
-  sed -i 's/l2wQLimit="256\ 2048"/l2wQLimit="\'${Memory}'"/' /appex/etc/config
-  sed -i 's/w2lQLimit="256\ 2048"/w2lQLimit="\'${Memory}'"/' /appex/etc/config
+  MA1=`echo ${Memory} | sed 's/\ /\\ /'`
+  sed -i 's/l2wQLimit="256\ 2048"/l2wQLimit="'${MA1}'"/' /appex/etc/config
+  sed -i 's/w2lQLimit="256\ 2048"/w2lQLimit="'${MA1}'"/' /appex/etc/config
   sed -i 's/initialCwndWan="22"/initialCwndWan="'${Ping3}'"/' /appex/etc/config
   sed -i 's/smBurstMS="16"/smBurstMS="'${Ping9}'"/' /appex/etc/config
   sed -i 's/shortRttMS="0"/shortRttMS="'${Ping3}'"/' /appex/etc/config
