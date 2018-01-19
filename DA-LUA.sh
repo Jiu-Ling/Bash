@@ -75,6 +75,7 @@ Make_Nginx(){
 	cd ${CustomBuild_Path}
 	mkdir -p custom/nginx
 	cp -Rp confiure/nginx/configure.nginx custom/nginx/configure.nginx
+	rm -rf ${DirectAdminNginxConf_Path}
 	sed -i 's/FD_SETSIZE.*/& \\/' ${CustomBuild_Path}/custom/nginx/configure.nginx
 	echo "        \"--with-ld-opt='-Wl,-rpath,/usr/local/luajit/lib'\" \\" >> ${CustomBuild_Path}/custom/nginx/configure.nginx
 	echo "        \"--add-module=/root/ngx_devel_kit-${Ngx_Devel_Kit_Ver_nv}\" \\" >> ${CustomBuild_Path}/custom/nginx/configure.nginx
