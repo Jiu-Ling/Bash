@@ -125,7 +125,7 @@ Debian_Install(){
 BT-Tracker(){
   wget --no-check-certificate https://raw.githubusercontent.com/Thnineer/Bash/master/init/bt-tracker.sh -qO /etc/aria2/bt-tracker.sh
   chmod +x /etc/aria2/bt-tracker.sh
-  cronfile = /tmp/crontab.${USER}
+  cronfile="/tmp/crontab.${USER}"
   crontab -l > $cronfile
   echo "*/30 * * * * bash /etc/aria2/bt-tracker.sh" >> $cronfile
   crontab $cronfile
