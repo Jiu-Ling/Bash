@@ -11,8 +11,8 @@ DirectAdminNginxConf_Path="/etc/nginx"
 CustomBuild_Path="/usr/local/directadmin/custombuild"
 CustomBuild_Build="/usr/local/directadmin/custombuild/build"
 
-echo "${Info} Scripts is made by Jiuling. Ver ${Ver}"
-echo "${Info} More Informatin. Please visit https://teduis.com/bash/Directadmin-Nginx-Lua.html"
+echo -e "${Info} Scripts is made by Jiuling. Ver ${Ver}"
+echo -e "${Info} More Informatin. Please visit https://teduis.com/bash/Directadmin-Nginx-Lua.html"
 get_char()
 {
 SAVEDSTTY=`stty -g`
