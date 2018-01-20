@@ -5,7 +5,7 @@ export PATH
 # By Jiuling.
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
-Info="${Green_font_prefix}[Messgae]${Font_color_suffix}"
+Info="${Green_font_prefix}[Message]${Font_color_suffix}"
 Error="${Red_font_prefix}[ERROR]${Font_color_suffix}"
 Tip="${Green_font_prefix}[Tip]${Font_color_suffix}"
 Ver="1.0"
@@ -53,12 +53,12 @@ Download_modules(){
         [[ ! -e "/root/${Ngx_Devel_Kit_Ver}.tar.gz" ]] && echo -e "${Error} Ngx_Devel_Kit Download Faild !" && exit 1
         echo -e "${Info} Ngx_Devel_Kit Download Success!"
         cd /root && tar -zxf ${Ngx_Devel_Kit_Ver}.tar.gz
-        Ngx_Devel_Kit_Ver_nv=`echo ${Ngx_Devel_Kit_Ver} | sed 's/v//g'`
+        Ngx_Devel_Kit_Ver_nv=`echo "${Ngx_Devel_Kit_Ver}" | sed 's/v//g'`
         wget -q 'https://github.com/openresty/lua-nginx-module/archive/${Lua_Nginx_Module_Ver}.tar.gz' -O /root/${Lua_Nginx_Module_Ver}.tar.gz
         [[ ! -e "/root/${Lua_Nginx_Module_Ver}.tar.gz" ]] && echo -e "${Error} Lua-Nginx-Module Download Faild !" && exit 1
         echo -e "${Info} Lua-Nginx-Module Download Success!"
         cd /root && tar -zxf ${Lua_Nginx_Module_Ver}.tar.gz
-        Lua_Nginx_Module_Ver_nv=`echo ${Lua_Nginx_Module_Ver} | sed 's/v//g'`
+        Lua_Nginx_Module_Ver_nv=`echo "${Lua_Nginx_Module_Ver}" | sed 's/v//g'`
 }
 Buckup_Nginx_Conf(){
        	cp -r ${DirectAdminNginxConf_Path} /etc/nginxb
@@ -66,8 +66,6 @@ Buckup_Nginx_Conf(){
 Make_Nginx(){
        	cd ${CustomBuild_Path}
         mkdir -p custom/nginx
-        cp -Rp confiure/nginx/configure.nginx custom/nginx/configure.nginx
-       	rm -rf ${DirectAdminNginxConf_Path}
         cp -Rp confiure/nginx/configure.nginx custom/nginx/configure.nginx
        	rm -rf ${DirectAdminNginxConf_Path}
        	export LUAJIT_LIB=/usr/local/luajit/lib
@@ -81,9 +79,9 @@ Make_Nginx(){
         mv /etc/nginxb ${DirectAdminNginxConf_Path}
         service nginx restart
         if [ ! -n "${YNSuccess}" ]; then
-                echo "${Info} Install Success. Restart Nginx Success."
+                echo -e "${Info} Install Success. Restart Nginx Success."
         else
-               	echo "${Error} Install Faild."
+               	echo -e "${Error} Install Faild."
 }
 Install_LuaJIT
 Download_modules
