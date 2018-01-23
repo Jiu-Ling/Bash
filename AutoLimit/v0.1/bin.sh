@@ -11,9 +11,9 @@ if [[ ! -n "${PID[$i]}" ; then
 	echo -e "Now is no over."
 else
 	if [[ ! -e "${PID[$i]}-qemu-kvm.sh" ; then
-	  cp /etc/local/autolimit/limit/default-example.sh /etc/local/autolimit/limit/${PID[$i]}-qemu-kvm.sh
-	  sed -i 's/examplea/'${PID[$i]}'/' /etc/local/autolimit/limit/${PID[$i]}-qemu-kvm.sh
-	  echo "bash test/${PID[$i]}-qemu-kvm.sh -t 1" /etc/local/autolimit/limit/main.sh
+	  cp /usr/local/autolimit/limit/default-example.sh /usr/local/autolimit/limit/${PID[$i]}-qemu-kvm.sh
+	  sed -i 's/examplea/'${PID[$i]}'/' /usr/local/autolimit/limit/${PID[$i]}-qemu-kvm.sh
+	  echo "bash test/${PID[$i]}-qemu-kvm.sh -t 1" /usr/local/autolimit/limit/main.sh
 	else 
 	  echo "Exist!"
 	fi
