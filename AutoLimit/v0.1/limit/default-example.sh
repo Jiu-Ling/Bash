@@ -13,7 +13,7 @@ while [[ $# -ge 1 ]]; do
     esac
 done
 
-BinPath="/etc/local/autolimit/limit/"
+BinPath="/usr/local/autolimit/limit/"
 PID="examplea"
 Totaltimes="24"
 MaxCPU="100"
@@ -31,4 +31,6 @@ if (( "$times" < "$Totaltimes" )) ; then
 else
 	cpulimit -p ${PID} ${MaxCPU} -z &
 	echo -e "[${Date}]: ${times} time(s). Now it's has been restricted. PID ${PID},CPU ${CPUNOW}" >> ${BinPath}log.txt
+	sed -i '/'${PID}'-qemu-kvm.sh/d' ${BinPath}main.sh
+	rm -rf ${PID}-qemu-kvm.sh
 fi
