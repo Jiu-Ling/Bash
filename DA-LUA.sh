@@ -82,6 +82,7 @@ Make_Nginx(){
                 echo -e "${Info} Install Success. Restart Nginx Success."
         else
                	echo -e "${Error} Install Faild."
+        fi
 }
 Install_LuaJIT
 Download_modules
