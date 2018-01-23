@@ -12,8 +12,8 @@ LimitAutoCronBin="/usr/local/autolimit/limit/main.sh"
 
 [[ -e "${LimitAutoBin}" ]] && echo -e "${Error} Autolimit is installed !" && exit 1
 
-mkdir /etc/local/autolimit
-mkdir /etc/local/autolimit/limit
+mkdir /usr/local/autolimit
+mkdir /usr/local/autolimit/limit
 wget https://raw.githubusercontent.com/Thnineer/Bash/master/AutoLimit/v0.1/bin.sh -qO ${LimitAutoBin}
 wget https://raw.githubusercontent.com/Thnineer/Bash/master/AutoLimit/v0.1/limit/default-example.sh -qO ${LimitAutoCronExampleSh}
 wget https://raw.githubusercontent.com/Thnineer/Bash/master/AutoLimit/v0.1/limit/main.sh -qO ${LimitAutoCronBin}
