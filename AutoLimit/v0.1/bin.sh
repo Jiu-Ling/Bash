@@ -2,7 +2,7 @@
 
 
 CPU=`ps aux | grep "qemu-kvm"| sed '/grep/d' | awk '{print $3}' | grep -wf <(seq 100 400)`
-CPUS=`ps aux | grep "qemu-kvm| sed '/grep/d' "| awk '{print $3}' | grep -wf <(seq 100 400) | wc -l`
+CPUS=`ps aux | grep "qemu-kvm" | sed '/grep/d' | awk '{print $3}' | grep -wf <(seq 100 400) | wc -l`
 for (( i=1; i<$[${CPUS}+1]; i++ ));
 do
 CPU[$i]=`echo "${CPU}" | sed -n ''${i}'p'`;
