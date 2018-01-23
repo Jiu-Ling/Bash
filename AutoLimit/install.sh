@@ -6,9 +6,9 @@ Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_p
 Info="${Green_font_prefix}[Message]${Font_color_suffix}"
 Error="${Red_font_prefix}[ERROR]${Font_color_suffix}"
 Tip="${Green_font_prefix}[Tip]${Font_color_suffix}"
-LimitAutoBin="/etc/local/autolimit/bin.sh"
-LimitAutoCronExampleSh="/etc/local/autolimit/limit/default-example.sh
-LimitAutoCronBin="/etc/local/autolimit/limit/main.sh"
+LimitAutoBin="/usr/local/autolimit/bin.sh"
+LimitAutoCronExampleSh="/usr/local/autolimit/limit/default-example.sh
+LimitAutoCronBin="/usr/local/autolimit/limit/main.sh"
 
 [[ -e "${LimitAutoBin}" ]] && echo -e "${Error} Autolimit is installed !" && exit 1
 
