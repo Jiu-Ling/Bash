@@ -78,7 +78,7 @@ Make_Nginx(){
         YNSuccess=`cat log.log | grep "Restarting nginx."`
         mv /etc/nginxb ${DirectAdminNginxConf_Path}
         service nginx restart
-        if [ ! -n "${YNSuccess}" ]; then
+        if [ -n "${YNSuccess}" ]; then
                 echo -e "${Info} Install Success. Restart Nginx Success."
         else
                	echo -e "${Error} Install Faild."
