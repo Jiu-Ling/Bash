@@ -20,11 +20,5 @@ wget https://raw.githubusercontent.com/Thnineer/Bash/master/AutoLimit/v0.1/limit
 [[ ! -e "${LimitAutoBin}" ]] && echo -e "${Error} AutolimitBin download failed !" && exit 1
 [[ ! -e "${LimitAutoCronExampleSh}" ]] && echo -e "${Error} LimitAutoCronExampleSh download failed !" && exit 1
 [[ ! -e "${LimitAutoCronBin}" ]] && echo -e "${Error} LimitAutoCronBin download failed !" && exit 1
-cronfile="/tmp/crontab.${USER}"
-crontab -l > $cronfile
-echo "*/5 * * * * bash /etc/local/autolimit/bin.sh" >> $cronfile
-echo "*/5 * * * * bash /etc/local/autolimit/limit/main.sh" >> $cronfile
-crontab $cronfile
-rm -rf $cronfile
 echo -e "${Info} Cron set success."
 echo -e "${Info} Install success."
