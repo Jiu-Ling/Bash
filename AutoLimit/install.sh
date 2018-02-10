@@ -15,6 +15,10 @@ mkdir /usr/local/autolimit/limit
 wget https://raw.githubusercontent.com/Thnineer/Bash/master/AutoLimit/v0.1/bin.sh -qO ${LimitAutoBin}
 wget https://raw.githubusercontent.com/Thnineer/Bash/master/AutoLimit/v0.1/limit/default-example.sh -qO ${LimitAutoCronExampleSh}
 wget https://raw.githubusercontent.com/Thnineer/Bash/master/AutoLimit/v0.1/limit/main.sh -qO ${LimitAutoCronBin}
+chmod +x ${LimitAutoBin}
+chmod +x ${LimitAutoCronBin}
+chmod -R 755 ${LimitAutoBin}
+chmod -R 755 ${LimitAutoCronBin}
 [[ ! -e "${LimitAutoBin}" ]] && echo -e "${Error} AutolimitBin download failed !" && exit 1
 [[ ! -e "${LimitAutoCronExampleSh}" ]] && echo -e "${Error} LimitAutoCronExampleSh download failed !" && exit 1
 [[ ! -e "${LimitAutoCronBin}" ]] && echo -e "${Error} LimitAutoCronBin download failed !" && exit 1
