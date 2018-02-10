@@ -13,7 +13,8 @@ else
 	if [[ ! -e "${PID[$i]}-qemu-kvm.sh" ]] ; then
 	  cp /usr/local/autolimit/limit/default-example.sh /usr/local/autolimit/limit/${PID[$i]}-qemu-kvm.sh
 	  sed -i 's/examplea/'${PID[$i]}'/' /usr/local/autolimit/limit/${PID[$i]}-qemu-kvm.sh
-	  echo "bash test/${PID[$i]}-qemu-kvm.sh -t 1" /usr/local/autolimit/limit/main.sh
+	  echo "bash /usr/local/autolimit/limit/${PID[$i]}-qemu-kvm.sh -t 1" /usr/local/autolimit/limit/main.sh
+	  chmod +x /usr/local/autolimit/limit/${PID[$i]}-qemu-kvm.sh
 	else 
 	  echo "Exist!"
 	fi
