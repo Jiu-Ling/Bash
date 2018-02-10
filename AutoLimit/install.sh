@@ -7,7 +7,7 @@ Info="${Green_font_prefix}[Message]${Font_color_suffix}"
 Error="${Red_font_prefix}[ERROR]${Font_color_suffix}"
 Tip="${Green_font_prefix}[Tip]${Font_color_suffix}"
 LimitAutoBin="/usr/local/autolimit/bin.sh"
-LimitAutoCronExampleSh="/usr/local/autolimit/limit/default-example.sh
+LimitAutoCronExampleSh="/usr/local/autolimit/limit/default-example.sh"
 LimitAutoCronBin="/usr/local/autolimit/limit/main.sh"
 [[ -e "${LimitAutoBin}" ]] && echo -e "${Error} Autolimit is installed !" && exit 1
 mkdir /usr/local/autolimit
