@@ -5,7 +5,7 @@ if [ -z "`grep "bt-tracker" /etc/aria2/aria2c/.conf`" ]; then
     sed -i '$a bt-tracker='${list} /etc/aria2/aria2c.conf
     echo First use,Preparing......
 else
-    sed -i "s@bt-tracker.*@bt-tracker=$list@g" /etc/aria2/aria2c/.conf
+    sed -i "s@bt-tracker.*@bt-tracker=$list@g" /etc/aria2/aria2c.conf
     echo Done!
 fi
 /usr/sbin/service aria2 start
