@@ -212,7 +212,6 @@ Installation_dependency(){
 	cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 }
 Centos_yum(){
-	yum update
 	yum install -y vim git python-devel libffi-devel openssl-devel python-setuptools
 	easy_install pip
 	pip install cymysql
