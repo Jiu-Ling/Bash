@@ -61,7 +61,7 @@ Build_Done(){
 Welcome(){
 	echo -e " This is ffmpeg build script.Ver ${Ver}."
 	echo -e " Welcome to https://teduis.com/."
-	echo -e "${Separator}"
+	echo -e " ${Separator}"
 	echo ""
 	echo " Using ${Core} make jobs simultaneously."
 }
@@ -367,8 +367,8 @@ Build_Ffmpeg(){
 
 Done(){
 	[[ ! -s "${INSTALL_FOLDER}/ffmpeg" ]] && echo -e "${Error} Ffmpeg Build Failed. Exit." && exit 1
-	echo -e "${Info} Ffmpeg Install Success!"
-	echo -e "${Tip} Welcome to https://teduis.com to know more about scripts."
+	echo -e " ${Info} Ffmpeg Install Success!"
+	echo -e " ${Tip} Welcome to https://teduis.com to know more about scripts."
 }
 
 Progress(){
