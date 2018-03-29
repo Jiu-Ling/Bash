@@ -117,6 +117,8 @@ Build_Yasm(){
 	run ./configure --prefix=${Build_Path}
 	run make -j ${Core}
 	run make install
+	ln -s /etc/ffmpeg/build/bin/yasm /usr/local/bin/yasm
+	ln -s /etc/ffmpeg/build/bin/yasm /usr/bin/yasm
 	Build_Done "Yasm"
 }
 
@@ -143,7 +145,6 @@ Build_Libvpx(){
 	tar -zxf libvpx-1.5.0.tar.gz -C .
 	cd ${SOURCES}/Libvpx/libvpx-1.5.0
 	sed -e 's/cp -p/cp/' -i build/make/Makefile
-	ln -s /etc/ffmpeg/build/bin/yasm /usr/local/bin/yasm
 	run ./configure --prefix=${Build_Path} --disable-unit-tests --disable-shared
 	run make -j ${Core}
 	run make install
