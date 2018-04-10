@@ -15,5 +15,7 @@ echo -e "${NETMASK}"
 echo -e "GATEWAY=${GATEWAY}"
 echo -e ""
 echo -e ""
+echo -e " ${Info} You can see it in iplist.txt."
+echo "${CanbeusedIPADDR}" >> iplist.txt
 echo -e " ${Info} This is ip address list:"
 echo -e "${CanbeusedIPADDR}"
