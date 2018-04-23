@@ -30,7 +30,8 @@ cat tmp.txt >> iplist.txt
 rm -rf tmp.txt
 while [ "$go" != 'y' ] && [ "$go" != 'n' ]
 	do
-		read -p " ${Message} Do you want to copy IP config files to /etc/sysconfig/network-scripts now?(y/n): " go;
+		echo -e " ${Message} Do you want to copy IP config files to /etc/sysconfig/network-scripts now?"
+		read -p " (y/n):" go;
 	done
 if [ "$go" == 'n' ];then
 	ls ipconfig
@@ -39,7 +40,8 @@ if [ "$go" == 'y' ];then
 	cp -p ipconfig/* /etc/sysconfig/network-scripts/
 	while [ "$gou" != 'y' ] && [ "$gou" != 'n' ]
 		do
-			read -p " ${Message} Do you want to reload network config now?(y/n): " gou;
+			echo -e " ${Message} Do you want to reload network config now?"
+			read -p " (y/n):" gou;
 		done
 		if [ "$gou" == 'n' ];then
 			echo -e " ${Tip} Exit."
