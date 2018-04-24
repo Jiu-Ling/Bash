@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # By Jiuling.
 
 File="$1"
