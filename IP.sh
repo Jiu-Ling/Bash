@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 File="$1"
 NetworkDevice=$(ifconfig | nl | sed -n ''$(ifconfig | nl |grep $(wget -qO- -t1 -T2 ipinfo.io/ip) | awk '{print $1}')'p' | awk '{print $2}' | sed 's/.$//')
 IP_SegmentCount=$(cat $File | wc -l)
