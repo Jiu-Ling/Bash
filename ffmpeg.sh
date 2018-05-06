@@ -10,7 +10,7 @@ SOURCES="${Path}/sources"
 Build_Path="${Path}/build"
 PKG_CONFIG_PATH="${Build_Path}/lib/pkgconfig"
 CC=clang
-Ver="0.1"
+Ver="0.2"
 
 [[ -e "${PWD}" ]] && mkdir -p ${PWD}
 [[ -e "${SOURCES}" ]] && mkdir -p ${SOURCES}
@@ -374,8 +374,7 @@ Done(){
 
 SoftLink(){
 	lib=( libavcodec.a libfdk-aac.a libogg.la libpostproc.a libtheoradec.la libvidstab.so.0.9 libvorbisfile.la libxvidcore.a libavdevice.a libfdk-aac.la libopencore-amrnb.a libswresample.a libtheoraenc.a libvorbis.a libvorbis.la libxvidcore.so libavfilter.a libmp3lame.a libopencore-amrnb.la libswscale.a libtheoraenc.la libvorbisenc.a libvpx.a libxvidcore.so.4 libavformat.a libmp3lame.la libopencore-amrwb.a libtheora.a libtheora.la libvorbisenc.la libx264.a libxvidcore.so.4.3 libavutil.a libogg.a libopencore-amrwb.la libtheoradec.a libvidstab.so libvorbisfile.a libx265.a libyasm.a )
-	pkg=( fdk-aac.pc libavdevice.pc libavformat.pc libpostproc.pc libswscale.pc opencore-amrnb.pc theoradec.pc theora.pc vorbisenc.pc vorbis.pc x264.pc libavcodec.pc libavfilter.pc libavutil.pc libswresample.pc ogg.pc opencore-amrwb.pc theoraenc.pc vidstab.pc vorbisfile.pc vpx.pc x265.pc )
-	bin=( cmake cpack ctest ffmpeg ffprobe lame pkg-config vpxdec vpxenc vsyasm x264 x265 x86_64-unknown-linux-gnu-pkg-config yasm ytasm )
+	bin=( cpack ctest lame vpxdec vpxenc vsyasm x264 x265 x86_64-unknown-linux-gnu-pkg-config ytasm )
 	for i in "${lib[@]}"
 		do
 			ln -s /etc/ffmpeg/build/lib/$i /usr/lib64/$i
@@ -385,24 +384,14 @@ SoftLink(){
 			ln -s /etc/ffmpeg/build/lib/$i /usr/local/lib/$i
 			ln -s /etc/ffmpeg/build/lib/$i /lib/$i
 		done
-	mkdir /usr/lib64/pkgconfig && mkdir /usr/local/lib64/pkgconfig && mkdir /lib64/pkgconfig && mkdir /lib/pkgconfig && mkdir /usr/lib/pkgconfig && mkdir /usr/local/lib/pkgconfig
-	for i in "${pkg[@]}"
-		do
-			ln -s /etc/ffmpeg/build/lib/pkgconfig/$i /usr/lib64/pkgconfig/$i
-			ln -s /etc/ffmpeg/build/lib/pkgconfig/$i /usr/local/lib64/pkgconfig/$i
-			ln -s /etc/ffmpeg/build/lib/pkgconfig/$i /lib64/pkgconfig/$i
-			ln -s /etc/ffmpeg/build/lib/pkgconfig/$i /usr/lib/pkgconfig/$i
-			ln -s /etc/ffmpeg/build/lib/pkgconfig/$i /usr/local/lib/pkgconfig/$i
-			ln -s /etc/ffmpeg/build/lib/pkgconfig/$i /lib/pkgconfig/$i
-		done
-	echo " ${Tip} Libraries have been linked."
+	echo -e " ${Tip} Libraries have been linked."
 	for i in "${bin[@]}"
 		do
 			ln -s /etc/ffmpeg/build/bin/$i /usr/bin/$i
 			ln -s /etc/ffmpeg/build/bin/$i /usr/local/bin/$i
 			ln -s /etc/ffmpeg/build/bin/$i /bin/$i
 		done
-	echo " ${Tip} Binary files have been linked."
+	echo -e " ${Tip} Binary files have been linked."
 }
 
 Progress(){
