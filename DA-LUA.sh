@@ -40,7 +40,7 @@ Install_LuaJIT(){
         yum install hwloc-devel libmicrohttpd-devel openssl-devel pcer pcre-devel zlib zlib-devel -y
         yum install -y gcc g++ gcc-c++
         echo -e "${Info} Install LuaJIT"
-        wget -q 'http://luajit.org/download/LuaJIT-${LuaJIT_Ver}.tar.gz' -O /root/LuaJIT-${LuaJIT_Ver}.tar.gz
+        wget -q 'http://luajit.org/download/LuaJIT-'${LuaJIT_Ver}'.tar.gz' -O /root/LuaJIT-${LuaJIT_Ver}.tar.gz
         [[ ! -e "/root/LuaJIT-${LuaJIT_Ver}.tar.gz" ]] && echo -e "${Error} LuaJIT Download Faild !" && exit 1
         cd /root && tar -zxf LuaJIT-${LuaJIT_Ver}.tar.gz
         cd LuaJIT-${LuaJIT_Ver}
@@ -49,12 +49,12 @@ Install_LuaJIT(){
         echo -e "${Info} LuaJIT Install Success."
 }
 Download_modules(){
-        wget -q 'https://github.com/simpl/ngx_devel_kit/archive/${Ngx_Devel_Kit_Ver}.tar.gz' -O /root/${Ngx_Devel_Kit_Ver}.tar.gz
+        wget -q 'https://github.com/simpl/ngx_devel_kit/archive/'${Ngx_Devel_Kit_Ver}'.tar.gz' -O /root/${Ngx_Devel_Kit_Ver}.tar.gz
         [[ ! -e "/root/${Ngx_Devel_Kit_Ver}.tar.gz" ]] && echo -e "${Error} Ngx_Devel_Kit Download Faild !" && exit 1
         echo -e "${Info} Ngx_Devel_Kit Download Success!"
         cd /root && tar -zxf ${Ngx_Devel_Kit_Ver}.tar.gz
         Ngx_Devel_Kit_Ver_nv=`echo "${Ngx_Devel_Kit_Ver}" | sed 's/v//g'`
-        wget -q 'https://github.com/openresty/lua-nginx-module/archive/${Lua_Nginx_Module_Ver}.tar.gz' -O /root/${Lua_Nginx_Module_Ver}.tar.gz
+        wget -q 'https://github.com/openresty/lua-nginx-module/archive/'${Lua_Nginx_Module_Ver}'.tar.gz' -O /root/${Lua_Nginx_Module_Ver}.tar.gz
         [[ ! -e "/root/${Lua_Nginx_Module_Ver}.tar.gz" ]] && echo -e "${Error} Lua-Nginx-Module Download Faild !" && exit 1
         echo -e "${Info} Lua-Nginx-Module Download Success!"
         cd /root && tar -zxf ${Lua_Nginx_Module_Ver}.tar.gz
@@ -62,6 +62,7 @@ Download_modules(){
 }
 Buckup_Nginx_Conf(){
        	cp -r ${DirectAdminNginxConf_Path} /etc/nginxb
+        echo -e "${Info} Buckup configuration files success."
 }
 Make_Nginx(){
        	cd ${CustomBuild_Path}
@@ -75,14 +76,11 @@ Make_Nginx(){
         echo "        \"--add-module=/root/ngx_devel_kit-${Ngx_Devel_Kit_Ver_nv}\" \\" >> ${CustomBuild_Path}/custom/nginx/configure.nginx
         echo "        \"--add-module=/root/lua-nginx-module-${Lua_Nginx_Module_Ver_nv}\"" >> ${CustomBuild_Path}/custom/nginx/configure.nginx
         ./build nginx | tee log.log
-        YNSuccess=`cat log.log | grep "Restarting nginx."`
+        rm -rf /etc/nginx
         mv /etc/nginxb ${DirectAdminNginxConf_Path}
+        echo -e "${Info} Restore configuration files success."
         service nginx restart
-        if [ -n "${YNSuccess}" ]; then
-                echo -e "${Info} Install Success. Restart Nginx Success."
-        else
-               	echo -e "${Error} Install Faild."
-        fi
+        echo -e "${Info} Install Success. Please check it.."
 }
 Install_LuaJIT
 Download_modules
